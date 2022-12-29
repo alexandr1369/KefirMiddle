@@ -15,13 +15,13 @@ namespace Installers
         private void BindModel()
         {
             Container.Bind<IUnitModel>()
-                .To<UnitUnitModel>()
+                .To<UnitModel>()
                 .AsSingle();
         }
-        
+
         private void BindPresenter()
         {
-            Container.BindInterfacesAndSelfTo<UnitUnitPresenter>()
+            Container.BindInterfacesAndSelfTo<UnitPresenter>()
                 .AsSingle();
         }
     }

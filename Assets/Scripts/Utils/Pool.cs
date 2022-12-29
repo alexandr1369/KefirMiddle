@@ -1,28 +1,30 @@
 using System.Collections.Generic;
-using UnityEngine;
+using Presenter;
 using Zenject;
 
 namespace Utils
 {
-    public abstract class Pool<T> : MonoBehaviour where T : MonoBehaviour
+    public abstract class Pool<T> : IInitializable where T : IUnitPresenter
     {
-        [field: SerializeField] protected T Item { get; private set; }
-        [field: SerializeField] protected int Count { get; private set; }
-
         private DiContainer _diContainer;
+        private int _count;
         
         [Inject]
-        private void Construct(DiContainer diContainer) => _diContainer = diContainer;
+        private void Construct(DiContainer diContainer, int count)
+        {
+            _diContainer = diContainer;
+            _count = count;
+        }
 
         private List<T> Items { get; set; }
 
-        protected virtual void Awake()
+        public void Initialize()
         {
             Items = new List<T>();
             
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < _count; i++)
             {
-                var item = _diContainer.InstantiatePrefabForComponent<T>(Item, transform);
+                var item = _diContainer.Resolve<T>();
                 Despawn(item);
             }
         }
@@ -31,7 +33,7 @@ namespace Utils
         {
             var item = Items[^1];
             Items.Remove(item);
-            item.gameObject.SetActive(true);
+            item.IsActive = true;
             
             return item;
         }
@@ -39,8 +41,7 @@ namespace Utils
         public void Despawn(T item)
         {
             Items.Add(item);
-            item.transform.parent = transform;
-            item.gameObject.SetActive(false);
+            item.IsActive = false;
         }
     }
 }

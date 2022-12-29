@@ -1,4 +1,6 @@
+using Factory;
 using Presenter;
+using Utils;
 using Zenject;
 
 namespace Installers
@@ -12,12 +14,34 @@ namespace Installers
         
         public override void InstallBindings()
         {
+            BindPresenter();
+            BindPool();
+            BindFactory();
+        }
+
+        private void BindPresenter()
+        {
             Container.Bind<IUnitPresenter>()
-                .To<UnitUnitPresenter>()
+                .To<UnitPresenter>()
                 .FromSubContainerResolve()
                 .ByNewPrefabInstaller<UnitSubContainerInstaller>(_settings.UnitViewPrefab)
+                .UnderTransform(transform)
                 .AsTransient();
-            Container.Resolve<IUnitPresenter>();
+        }
+
+        private void BindPool()
+        {
+            Container.Bind(typeof(IInitializable), typeof(Pool<IUnitPresenter>))
+                .To<UnitPresenter.Pool>()
+                .AsSingle()
+                .WithArguments(_settings.UnitViewsCount);
+        }
+
+        private void BindFactory()
+        {
+            Container.Bind<Utils.IFactory<IUnitPresenter>>()
+                .To<UnitPresenterFactory>()
+                .AsSingle();
         }
     }
 }

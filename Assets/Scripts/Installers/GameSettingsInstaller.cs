@@ -21,6 +21,8 @@ namespace Installers
         public class GameSettings
         {
             [field: SerializeField] public UnitView UnitViewPrefab { get; private set; }
+            [field: SerializeField] public int UnitViewsCount { get; private set; }
+            [field: SerializeField] public float PlayerMovementSpeed { get; private set; }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Editor.Tests
         public void WhenCreatingUnit_ThenHealthShouldBe_0()
         {
             // Arrange
-            var unit = new UnitUnitModel();
+            var unit = new UnitModel();
 
             // Assert
             unit.Health.Should().Be(0);
@@ -20,7 +20,7 @@ namespace Editor.Tests
         {
             // Arrange
             var wasTookDamageEventCalled = false;
-            IUnitModel unitModel = new UnitUnitModel(5);
+            IUnitModel unitModel = new UnitModel(5);
 
             // Act
             unitModel.OnTookDamage += _ => wasTookDamageEventCalled = true;
@@ -36,7 +36,7 @@ namespace Editor.Tests
         {
             // Arrange
             var wasDestroyedEventCalled = false;
-            IUnitModel unitModel = new UnitUnitModel(5);
+            IUnitModel unitModel = new UnitModel(5);
 
             // Act
             unitModel.OnDestroyed += () => wasDestroyedEventCalled = true;
