@@ -11,12 +11,14 @@ namespace Presenter
         Transform Transform { get; }
         MeshRenderer MeshRenderer { get; }
         MeshFilter MeshFilter { get; }
-        Vector3 Position { get; }
-        Vector3 Velocity { get; }
-        Vector3 LocalScale { get; }
+        Vector3 Position { get; set; }
+        Vector3 Velocity { get; set; }
+        Vector3 LocalScale { get; set; }
         Quaternion Rotation { get; set; }
+        float Drag { set; }
         bool IsActive { set; }
-        void TakeDamage(int damage);
+        bool IsPlayer { get; set; }
+        void TakeDamage();
         void AddForce(Vector3 force);
     }
 }

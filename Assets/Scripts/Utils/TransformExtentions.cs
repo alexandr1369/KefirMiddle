@@ -24,5 +24,7 @@ namespace Utils
             pos.z = z;
             transform.position = pos;
         }
+
+        public static Vector3 SetVector3(this float ratio) => new Vector3(ratio, ratio, ratio);
     }
 }

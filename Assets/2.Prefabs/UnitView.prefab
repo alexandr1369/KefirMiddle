@@ -134,7 +134,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -199,4 +199,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Rb>k__BackingField: {fileID: 9035105138376432166}
   <MeshRenderer>k__BackingField: {fileID: 6652061582140501472}
+  <MeshFilter>k__BackingField: {fileID: 6652061582140501474}
   <BulletsSpawnPoint>k__BackingField: {fileID: 5284593264370033688}

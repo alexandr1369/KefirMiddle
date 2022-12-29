@@ -25,8 +25,8 @@ namespace Presenter
 
         public Vector3 Position
         {
-            get => _view.Rb.position;
-            set => _view.Rb.position = value;
+            get => _view.Rb.transform.position;
+            set => _view.Rb.transform.position = value;
         }
         
         public Vector3 Velocity
@@ -43,14 +43,26 @@ namespace Presenter
 
         public Quaternion Rotation
         {
-            get => _view.Rb.rotation;
-            set => _view.Rb.rotation = value;
+            get => _view.Rb.transform.rotation;
+            set => _view.Rb.transform.rotation = value;
         }
-        
+
+        public float Drag
+        {
+            get => _view.Rb.drag;
+            set => _view.Rb.drag = value;
+        }
+
         public bool IsActive
         {
             get => _view.IsActive;
             set => _view.IsActive = value;
+        }
+
+        public bool IsPlayer
+        {
+            get => _view.IsPlayer;
+            set => _view.IsPlayer = value;
         }
 
         private readonly IUnitModel _model;
@@ -59,12 +71,13 @@ namespace Presenter
         public UnitPresenter(IUnitModel model, IUnitView view, Pool<IUnitPresenter> pool)
         {
             _view = view;
+            _view.OnPlayerHitsEnemy += TakeDamage;
             _model = model;
+            _model.OnDestroyed += () => OnDestroyed?.Invoke();
             OnDestroyed += () => pool.Despawn(this);
-            _model.OnDestroyed += OnDestroyed;
         }
 
-        public void TakeDamage(int damage) => _model.TakeDamage(damage);
+        public void TakeDamage() => _model.TakeDamage();
         
         public void AddForce(Vector3 force) => _view.Rb.AddForce(force);
 

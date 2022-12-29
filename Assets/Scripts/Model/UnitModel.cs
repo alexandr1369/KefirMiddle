@@ -9,17 +9,14 @@ namespace Model
         
         public int Health { get; set; }
         
-        public UnitModel(int health = 0)
-        {
-            Health = health;
-        }
+        public UnitModel(int health = 1) => Health = health;
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage = 1)
         {
             Health = Math.Clamp(Health - damage, 0, int.MaxValue);
             OnTookDamage?.Invoke(damage);
 
-            if (Health <= 0)
+            if (Health <= 0) 
                 OnDestroyed?.Invoke();
         }
     }

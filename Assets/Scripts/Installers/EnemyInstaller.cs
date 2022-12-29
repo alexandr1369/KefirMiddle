@@ -1,4 +1,3 @@
-using System;
 using Enemy;
 using Factory;
 using UnityEngine;
@@ -15,11 +14,12 @@ namespace Installers
             BindEnemy();
             BindFactory();
             BindEnemiesManager();
+            BindTeleportChecker();
         }
 
         private void BindEnemy()
         {
-            Container.Bind<Enemy.Enemy>()
+            Container.BindInterfacesAndSelfTo<Enemy.Enemy>()
                 .AsTransient()
                 .WithArguments(Settings);
         }
@@ -36,6 +36,12 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<EnemiesManager>()
                 .AsSingle()
                 .WithArguments(Settings);
+        }
+
+        private void BindTeleportChecker()
+        {
+            Container.BindInterfacesAndSelfTo<EnemiesTeleportChecker>()
+                .AsSingle();
         }
     }
 }

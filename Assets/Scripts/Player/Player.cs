@@ -16,6 +16,7 @@ namespace Player
         {
             Presenter = _factory.Create();
             Presenter.IsActive = true;
+            Presenter.IsPlayer = true;
             Presenter.Parent = parent;
         }
     }

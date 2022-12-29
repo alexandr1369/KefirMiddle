@@ -1,6 +1,5 @@
 using Presenter;
 using UnityEngine;
-using Utils;
 
 namespace Enemy
 {
@@ -8,7 +7,7 @@ namespace Enemy
     {
         private readonly EnemiesManager.Settings _settings;
 
-        protected Enemy(IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings) 
+        protected Enemy(Utils.IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings) 
             : base(factory)
         {
             _settings = settings;
@@ -18,6 +17,7 @@ namespace Enemy
         {
             base.Init(parent);
             
+            Presenter.IsPlayer = false;
             Presenter.MeshRenderer.material = _settings.Material;
             Presenter.MeshFilter.mesh = _settings.Mesh;
         }

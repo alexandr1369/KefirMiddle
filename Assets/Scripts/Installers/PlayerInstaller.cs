@@ -58,7 +58,8 @@ namespace Installers
 
         private void BindDeathChecker()
         {
-            Container.Bind<PlayerDeathChecker>()
+            Container.Bind(typeof(IInitializable))
+                .To<PlayerDeathChecker>()
                 .AsSingle();
         }
 
