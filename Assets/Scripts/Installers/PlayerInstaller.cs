@@ -13,6 +13,7 @@ namespace Installers
         {
             BindPlayer();
             BindMovement();
+            BindTurning();
             BindShooting();
         }
 
@@ -27,6 +28,12 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<PlayerMovement>()
                 .AsSingle()
                 .WithArguments(MovementSettings);
+        }
+        
+        private void BindTurning()
+        {
+            Container.BindInterfacesAndSelfTo<PlayerTurning>()
+                .AsSingle();
         }
 
         private void BindShooting()

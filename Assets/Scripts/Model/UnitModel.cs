@@ -19,7 +19,7 @@ namespace Model
             Health = Math.Clamp(Health - damage, 0, int.MaxValue);
             OnTookDamage?.Invoke(damage);
 
-            if (Health <= 0) 
+            if (Health <= 0)
                 OnDestroyed?.Invoke();
         }
     }
