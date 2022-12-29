@@ -1,4 +1,4 @@
-using Player.Movement;
+using Movement;
 
 namespace Player
 {
@@ -14,7 +14,7 @@ namespace Player
 
         private void OnDestroyed()
         {
-            _movement.SetMoveBehaviour(new PlayerDestroyedMoveBehaviour());
+            _movement.SetMoveBehaviour(new NoMoveBehaviour());
             
             // TODO: restart game with ISceneLoader
         }

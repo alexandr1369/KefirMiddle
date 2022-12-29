@@ -1,5 +1,5 @@
 using System;
-using Player.Movement;
+using Movement;
 using UnityEngine;
 using Zenject;
 
@@ -7,14 +7,14 @@ namespace Player
 {
     public class PlayerMovement : IFixedTickable, IPlayerMovement
     {
-        private IPlayerMovable _moveBehaviour;
+        private IMovable _moveBehaviour;
 
         private PlayerMovement(Player player, Settings settings) => 
-            SetMoveBehaviour(new PlayerMovableMoveBehaviour(player, settings));
+            SetMoveBehaviour(new MovableMoveBehaviour(player, settings));
 
         public void FixedTick() => _moveBehaviour.Move();
 
-        public void SetMoveBehaviour(IPlayerMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
+        public void SetMoveBehaviour(IMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
 
         [Serializable]
         public class Settings
@@ -25,6 +25,6 @@ namespace Player
 
     public interface IPlayerMovement
     {
-        void SetMoveBehaviour(IPlayerMovable moveBehaviour);
+        void SetMoveBehaviour(IMovable moveBehaviour);
     }
 }

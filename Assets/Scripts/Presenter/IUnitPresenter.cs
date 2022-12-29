@@ -9,6 +9,8 @@ namespace Presenter
         Transform Parent { set; }
         Transform BulletsSpawnPoint { get; }
         Transform Transform { get; }
+        MeshRenderer MeshRenderer { get; }
+        MeshFilter MeshFilter { get; }
         Vector3 Position { get; }
         Vector3 Velocity { get; }
         Vector3 LocalScale { get; }

@@ -198,4 +198,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rb>k__BackingField: {fileID: 9035105138376432166}
+  <MeshRenderer>k__BackingField: {fileID: 6652061582140501472}
   <BulletsSpawnPoint>k__BackingField: {fileID: 5284593264370033688}

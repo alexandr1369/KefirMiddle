@@ -20,14 +20,15 @@ namespace Player
         public void FixedTick()
         {
             var mouseRay = _camera.Camera.ScreenPointToRay(Input.mousePosition);
-            var mousePos = mouseRay.origin;
-            mousePos.z = 0;
+            var mousePosition = mouseRay.origin;
+            mousePosition.z = 0;
 
-            var goalDir = mousePos - _player.Presenter.Position;
-            goalDir.z = 0;
-            goalDir.Normalize();
+            var targetDirection = mousePosition - _player.Presenter.Position;
+            targetDirection.z = 0;
+            targetDirection.Normalize();
 
-            _player.Presenter.Rotation = Quaternion.LookRotation(goalDir) * Quaternion.AngleAxis(90, Vector3.up);
+            _player.Presenter.Rotation = 
+                Quaternion.LookRotation(targetDirection) * Quaternion.AngleAxis(90, Vector3.up);
         }
     }
 }

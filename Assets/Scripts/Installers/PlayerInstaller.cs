@@ -26,6 +26,7 @@ namespace Installers
         {
             Container.Bind<ISpawnPoint>()
                 .To<PlayerSpawnPoint>()
+                .FromInstance(PlayerSpawnPoint)
                 .AsSingle();
         }
 

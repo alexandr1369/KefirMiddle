@@ -1,6 +1,6 @@
-namespace Player.Movement
+namespace Movement
 {
-    public class PlayerDestroyedMoveBehaviour : IPlayerMovable
+    public class NoMoveBehaviour : IMovable
     {
         public void Move()
         {

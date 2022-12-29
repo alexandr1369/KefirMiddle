@@ -1,13 +1,14 @@
+using Player;
 using UnityEngine;
 
-namespace Player.Movement
+namespace Movement
 {
-    public class PlayerMovableMoveBehaviour : IPlayerMovable
+    public class MovableMoveBehaviour : IMovable
     {
-        private readonly Player _player;
+        private readonly Player.Player _player;
         private readonly PlayerMovement.Settings _settings;
 
-        public PlayerMovableMoveBehaviour(Player player, PlayerMovement.Settings settings)
+        public MovableMoveBehaviour(Player.Player player, PlayerMovement.Settings settings)
         {
             _player = player;
             _settings = settings;
