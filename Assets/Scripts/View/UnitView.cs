@@ -4,6 +4,6 @@ namespace View
 {
     public class UnitView : MonoBehaviour
     {
-        [field: SerializeField] private Rigidbody Rb { get; set; }
+        [field: SerializeField] public Rigidbody Rb { get; private set; }
     }
 }

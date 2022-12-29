@@ -20,14 +20,14 @@ namespace Editor.Tests
         {
             // Arrange
             var wasTookDamageEventCalled = false;
-            IUnit unit = new UnitModel(5);
+            IModel model = new UnitModel(5);
 
             // Act
-            unit.OnTookDamage += _ => wasTookDamageEventCalled = true;
-            unit.TakeDamage(2);
+            model.OnTookDamage += _ => wasTookDamageEventCalled = true;
+            model.TakeDamage(2);
 
             // Assert
-            unit.Health.Should().Be(3);
+            model.Health.Should().Be(3);
             wasTookDamageEventCalled.Should().Be(true);
         }
 
@@ -36,11 +36,11 @@ namespace Editor.Tests
         {
             // Arrange
             var wasDestroyedEventCalled = false;
-            IUnit unit = new UnitModel(5);
+            IModel model = new UnitModel(5);
 
             // Act
-            unit.OnDestroyed += () => wasDestroyedEventCalled = true;
-            unit.TakeDamage(12);
+            model.OnDestroyed += () => wasDestroyedEventCalled = true;
+            model.TakeDamage(12);
 
             // Assert
             wasDestroyedEventCalled.Should().Be(true);

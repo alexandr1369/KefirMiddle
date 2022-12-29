@@ -6,17 +6,33 @@ using Zenject;
 
 namespace Presenter
 {
-    public class UnitPresenter : IInitializable, IDisposable
+    public class UnitPresenter : IPresenter, IInitializable, IDisposable
     {
-        private readonly IUnit _model;
-        private readonly UnitView _view;
-
-        public UnitPresenter(IUnit model, UnitView view)
+        public Vector3 Position
         {
-            _view = view;
-            _model = model;
-            
-            Debug.Log("Player presenter");
+            get => View.Rb.position;
+            set => View.Rb.position = value;
+        }
+
+        public Vector3 Velocity
+        {
+            get => View.Rb.velocity;
+            set => View.Rb.velocity = value;
+        }
+
+        public Quaternion Rotation
+        {
+            get => View.Rb.rotation;
+            set => View.Rb.rotation = value;
+        }
+
+        protected readonly IModel Model;
+        protected readonly UnitView View;
+
+        public UnitPresenter(IModel model, UnitView view)
+        {
+            View = view;
+            Model = model;
         }
 
         void IInitializable.Initialize()
@@ -28,5 +44,12 @@ namespace Presenter
         {
             Debug.Log("[Player Presenter] Disposing!");
         }
+    }
+
+    public interface IPresenter
+    {
+        Vector3 Position { get; }
+        Vector3 Velocity { get; }
+        Quaternion Rotation { get; }
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace Model
 {
-    public class UnitModel : IUnit
+    public class UnitModel : IModel
     {
         public event Action<int> OnTookDamage;
         public event Action OnDestroyed;

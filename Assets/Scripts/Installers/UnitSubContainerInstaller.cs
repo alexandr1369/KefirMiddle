@@ -22,7 +22,7 @@ namespace Installers
 
         private void BindModel()
         {
-            Container.Bind<IUnit>()
+            Container.Bind<IModel>()
                 .To<UnitModel>()
                 .AsSingle();
         }
@@ -32,6 +32,7 @@ namespace Installers
             Container.Bind<UnitView>()
                 .FromInstance(_unitView)
                 .AsSingle();
+            _unitView.transform.parent = null;
         }
 
         private void BindPresenter()
