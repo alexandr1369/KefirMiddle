@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -5,15 +6,34 @@ namespace Player
 {
     public class PlayerMovement : ITickable
     {
+        private readonly Player _player;
+        private readonly Settings _settings;
+
+        private PlayerMovement(Player player, Settings settings)
+        {
+            _player = player;
+            _settings = settings;
+        }
+        
         public void Tick()
         {
-            PlayerInput.IsMovingLeft = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A);
-            PlayerInput.IsMovingRight = Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D);
-            PlayerInput.IsMovingUp = Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W);
-            PlayerInput.IsMovingDown = Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S);
+            if(PlayerInput.IsMovingLeft)
+                _player.Presenter.AddForce(Vector3.left * _settings.MovementSpeed);
+            
+            if(PlayerInput.IsMovingRight)
+                _player.Presenter.AddForce(Vector3.right * _settings.MovementSpeed);
+            
+            if(PlayerInput.IsMovingUp)
+                _player.Presenter.AddForce(Vector3.up * _settings.MovementSpeed);
+            
+            if(PlayerInput.IsMovingDown)
+                _player.Presenter.AddForce(Vector3.down * _settings.MovementSpeed);
+        }
 
-            PlayerInput.IsShootingBullets = Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0);
-            PlayerInput.IsShootingLaser = Input.GetKey(KeyCode.X) || Input.GetMouseButton(1);
+        [Serializable]
+        public class Settings
+        {
+            [field: SerializeField] public float MovementSpeed { get; private set; }   
         }
     }
 }

@@ -7,44 +7,53 @@ namespace Presenter
 {
     public class UnitPresenter : IUnitPresenter
     {
-        public IUnitModel Model { get; }
-        public IUnitView View { get; }
-        
+        public Transform Parent
+        {
+            get => _view.Rb.transform.parent;
+            set => _view.Rb.transform.parent = value;
+        }
+
+        public Transform BulletsSpawnPoint => _view.BulletsSpawnPoint;
+
         public Vector3 Position
         {
-            get => View.Rb.position;
-            set => View.Rb.position = value;
+            get => _view.Rb.position;
+            set => _view.Rb.position = value;
         }
         
         public Vector3 Velocity
         {
-            get => View.Rb.velocity;
-            set => View.Rb.velocity = value;
+            get => _view.Rb.velocity;
+            set => _view.Rb.velocity = value;
         }
         
         public Quaternion Rotation
         {
-            get => View.Rb.rotation;
-            set => View.Rb.rotation = value;
+            get => _view.Rb.rotation;
+            set => _view.Rb.rotation = value;
         }
         
         public bool IsActive
         {
-            get => View.IsActive;
-            set => View.IsActive = value;
+            get => _view.IsActive;
+            set => _view.IsActive = value;
         }
 
+        private readonly IUnitModel _model;
+        private readonly IUnitView _view;
         private readonly Pool<IUnitPresenter> _pool;
-
+        
         public UnitPresenter(IUnitModel model, IUnitView view, Pool<IUnitPresenter> pool)
         {
-            View = view;
-            Model = model;
-            Model.OnDestroyed += OnDestroyed;
+            _view = view;
+            _model = model;
+            _model.OnDestroyed += OnDestroyed;
             _pool = pool;
         }
 
-        public void TakeDamage(int damage) => Model.TakeDamage(damage);
+        public void TakeDamage(int damage) => _model.TakeDamage(damage);
+        
+        public void AddForce(Vector3 force) => _view.Rb.AddForce(force);
 
         private void OnDestroyed() => _pool.Despawn(this);
 
