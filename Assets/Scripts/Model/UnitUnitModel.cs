@@ -2,14 +2,14 @@ using System;
 
 namespace Model
 {
-    public class UnitModel : IModel
+    public class UnitUnitModel : IUnitModel
     {
         public event Action<int> OnTookDamage;
         public event Action OnDestroyed;
         
         public int Health { get; private set; }
         
-        public UnitModel(int health = 0)
+        public UnitUnitModel(int health = 0)
         {
             Health = health;
         }

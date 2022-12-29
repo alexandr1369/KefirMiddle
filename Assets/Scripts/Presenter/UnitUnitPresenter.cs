@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Presenter
 {
-    public class UnitPresenter : IPresenter, IInitializable, IDisposable
+    public class UnitUnitPresenter : IUnitPresenter, IInitializable, IDisposable
     {
         public Vector3 Position
         {
@@ -26,13 +26,13 @@ namespace Presenter
             set => View.Rb.rotation = value;
         }
 
-        protected readonly IModel Model;
-        protected readonly UnitView View;
+        protected readonly IUnitModel UnitModel;
+        protected readonly IUnitView View;
 
-        public UnitPresenter(IModel model, UnitView view)
+        public UnitUnitPresenter(IUnitModel unitModel, IUnitView view)
         {
             View = view;
-            Model = model;
+            UnitModel = unitModel;
         }
 
         void IInitializable.Initialize()
@@ -44,12 +44,5 @@ namespace Presenter
         {
             Debug.Log("[Player Presenter] Disposing!");
         }
-    }
-
-    public interface IPresenter
-    {
-        Vector3 Position { get; }
-        Vector3 Velocity { get; }
-        Quaternion Rotation { get; }
     }
 }

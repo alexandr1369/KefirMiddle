@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8467423701480038941}
   - component: {fileID: 9035105138376432166}
   - component: {fileID: 6652061582140501478}
+  - component: {fileID: 3650950999233502853}
   m_Layer: 8
   m_Name: UnitView
   m_TagString: Untagged
@@ -147,3 +148,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Rb>k__BackingField: {fileID: 9035105138376432166}
+--- !u!114 &3650950999233502853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6652061582140501484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 6652061582140501478}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0

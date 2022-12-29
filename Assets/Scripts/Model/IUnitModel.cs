@@ -2,7 +2,7 @@ using System;
 
 namespace Model
 {
-    public interface IModel
+    public interface IUnitModel
     {
         event Action<int> OnTookDamage;
         event Action OnDestroyed;
