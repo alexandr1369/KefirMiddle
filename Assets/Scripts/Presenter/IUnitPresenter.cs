@@ -8,8 +8,10 @@ namespace Presenter
         event Action OnDestroyed;
         Transform Parent { set; }
         Transform BulletsSpawnPoint { get; }
+        Transform Transform { get; }
         Vector3 Position { get; }
         Vector3 Velocity { get; }
+        Vector3 LocalScale { get; }
         Quaternion Rotation { get; set; }
         bool IsActive { set; }
         void TakeDamage(int damage);

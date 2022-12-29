@@ -13,7 +13,7 @@ namespace Player
         private float _extraShootingReloadDelay;
         private int _extraShootingCount;
 
-        private PlayerShooting(Player player,  Settings settings)
+        private PlayerShooting(Player player, Settings settings)
         {
             _player = player;
             _settings = settings;

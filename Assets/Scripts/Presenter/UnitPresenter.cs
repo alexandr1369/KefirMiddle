@@ -17,6 +17,8 @@ namespace Presenter
         }
 
         public Transform BulletsSpawnPoint => _view.BulletsSpawnPoint;
+        
+        public Transform Transform => _view.Rb.transform;
 
         public Vector3 Position
         {
@@ -29,7 +31,13 @@ namespace Presenter
             get => _view.Rb.velocity;
             set => _view.Rb.velocity = value;
         }
-        
+
+        public Vector3 LocalScale
+        {
+            get => _view.Rb.transform.localScale;
+            set => _view.Rb.transform.localScale = value;
+        }
+
         public Quaternion Rotation
         {
             get => _view.Rb.rotation;

@@ -6,7 +6,7 @@ namespace Model
     {
         event Action<int> OnTookDamage;
         event Action OnDestroyed;
-        int Health { get; set; }
         void TakeDamage(int damage);
+        int Health { get; }
     }
 }

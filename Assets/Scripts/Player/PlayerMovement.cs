@@ -1,39 +1,30 @@
 using System;
+using Player.Movement;
 using UnityEngine;
 using Zenject;
 
 namespace Player
 {
-    public class PlayerMovement : ITickable
+    public class PlayerMovement : IFixedTickable, IPlayerMovement
     {
-        private readonly Player _player;
-        private readonly Settings _settings;
+        private IPlayerMovable _moveBehaviour;
 
-        private PlayerMovement(Player player, Settings settings)
-        {
-            _player = player;
-            _settings = settings;
-        }
-        
-        public void Tick()
-        {
-            if(PlayerInput.IsMovingLeft)
-                _player.Presenter.AddForce(Vector3.left * _settings.MovementSpeed);
-            
-            if(PlayerInput.IsMovingRight)
-                _player.Presenter.AddForce(Vector3.right * _settings.MovementSpeed);
-            
-            if(PlayerInput.IsMovingUp)
-                _player.Presenter.AddForce(Vector3.up * _settings.MovementSpeed);
-            
-            if(PlayerInput.IsMovingDown)
-                _player.Presenter.AddForce(Vector3.down * _settings.MovementSpeed);
-        }
+        private PlayerMovement(Player player, Settings settings) => 
+            SetMoveBehaviour(new PlayerMovableMoveBehaviour(player, settings));
+
+        public void FixedTick() => _moveBehaviour.Move();
+
+        public void SetMoveBehaviour(IPlayerMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
 
         [Serializable]
         public class Settings
         {
             [field: SerializeField] public float MovementSpeed { get; private set; }   
         }
+    }
+
+    public interface IPlayerMovement
+    {
+        void SetMoveBehaviour(IPlayerMovable moveBehaviour);
     }
 }

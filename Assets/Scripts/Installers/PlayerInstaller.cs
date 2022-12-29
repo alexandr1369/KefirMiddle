@@ -1,4 +1,5 @@
 using Player;
+using Player.SpawnPoint;
 using UnityEngine;
 using Zenject;
 
@@ -8,13 +9,24 @@ namespace Installers
     {
         [field: SerializeField] private PlayerMovement.Settings MovementSettings { get; set; }
         [field: SerializeField] private PlayerShooting.Settings ShootingSettings { get; set; }
-        
+        [field: SerializeField] private PlayerSpawnPoint PlayerSpawnPoint { get; set; }
+
         public override void InstallBindings()
         {
+            BindSpawnPoint();
             BindPlayer();
             BindMovement();
             BindTurning();
             BindShooting();
+            BindDeathChecker();
+            BindTeleportChecker();
+        }
+
+        private void BindSpawnPoint()
+        {
+            Container.Bind<ISpawnPoint>()
+                .To<PlayerSpawnPoint>()
+                .AsSingle();
         }
 
         private void BindPlayer()
@@ -29,7 +41,7 @@ namespace Installers
                 .AsSingle()
                 .WithArguments(MovementSettings);
         }
-        
+
         private void BindTurning()
         {
             Container.BindInterfacesAndSelfTo<PlayerTurning>()
@@ -41,6 +53,18 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<PlayerShooting>()
                 .AsSingle()
                 .WithArguments(ShootingSettings);
+        }
+
+        private void BindDeathChecker()
+        {
+            Container.Bind<PlayerDeathChecker>()
+                .AsSingle();
+        }
+
+        private void BindTeleportChecker()
+        {
+            Container.BindInterfacesAndSelfTo<PlayerTeleportChecker>()
+                .AsSingle();
         }
     }
 }

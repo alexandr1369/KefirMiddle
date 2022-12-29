@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 294763627}
   - component: {fileID: 294763626}
   m_Layer: 0
-  m_Name: HomeSceneCameraInstaller
+  m_Name: LocationInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb7d9a85f11423ca99c0dc29ad481d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Camera>k__BackingField: {fileID: 519420031}
+  <Camera>k__BackingField: {fileID: 519420033}
 --- !u!4 &294763627
 Transform:
   m_ObjectHideFlags: 0
@@ -179,8 +179,9 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: HomeSceneCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +261,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a353e0ef78d43069f6bb63527585961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Camera>k__BackingField: {fileID: 519420031}
 --- !u!1 &660284501
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MovementSettings>k__BackingField:
-    <MovementSpeed>k__BackingField: 20
+    <MovementSpeed>k__BackingField: 200
   <ShootingSettings>k__BackingField:
     <BulletsShootingDelay>k__BackingField: 0.2
     <ExtraShootingDelay>k__BackingField: 0.2

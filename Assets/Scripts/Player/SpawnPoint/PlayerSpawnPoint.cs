@@ -8,16 +8,11 @@ namespace Player.SpawnPoint
         private Player _player;
         
         [Inject]
-        private void Construct(Player player)
-        {
-            _player = player;
-        }
+        private void Construct(Player player) => _player = player;
 
+        // TODO: вынести в сиквенс загрузки
         private void Start() => Respawn();
 
-        public void Respawn()
-        {
-            _player.Init(transform);
-        }
+        public void Respawn() => _player.Init(transform);
     }
 }

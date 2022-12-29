@@ -1,3 +1,4 @@
+using Location;
 using UnityEngine;
 using Zenject;
 using Quaternion = UnityEngine.Quaternion;
@@ -8,17 +9,17 @@ namespace Player
     public class PlayerTurning : IFixedTickable
     {
         private readonly Player _player;
-        private readonly Camera _mainCamera;
+        private readonly IHomeSceneCamera _camera;
 
-        private PlayerTurning(Player player, Camera mainCamera)
+        private PlayerTurning(Player player, IHomeSceneCamera camera)
         {
             _player = player;
-            _mainCamera = mainCamera;
+            _camera = camera;
         }
 
         public void FixedTick()
         {
-            var mouseRay = _mainCamera.ScreenPointToRay(Input.mousePosition);
+            var mouseRay = _camera.Camera.ScreenPointToRay(Input.mousePosition);
             var mousePos = mouseRay.origin;
             mousePos.z = 0;
 
