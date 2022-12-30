@@ -38,11 +38,14 @@ namespace View
 
         private void InteractWith(IUnitView unitView)
         {
-            var playerHitsEnemy = IsPlayer && !unitView.IsPlayer;
-            // var enemyHitsBullet = !IsPlayer &&
+            var playerHitsEnemy = IsPlayer && !unitView.IsPlayer && !unitView.IsBullet;
+            var enemyHitsBullet = !IsPlayer && !IsBullet && unitView.IsBullet;
             
             if(playerHitsEnemy)
                 OnPlayerHitsEnemy?.Invoke();
+            
+            if(enemyHitsBullet)
+                OnEnemyHitsBullet?.Invoke();
         }
     }
 }

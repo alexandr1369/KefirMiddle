@@ -1,3 +1,4 @@
+using Bullet;
 using UnityEngine;
 using Zenject;
 
@@ -6,12 +7,14 @@ namespace Player.Shooting
     public class SingleBulletShootBehaviour : ITickable, IShooting
     {
         private readonly Core _core;
+        private readonly IBulletsService _bulletsService;
         private readonly PlayerShooting.Settings _settings;
         private float _bulletsShootingDelay;
 
-        public SingleBulletShootBehaviour(Core core, PlayerShooting.Settings settings)
+        public SingleBulletShootBehaviour(Core core, IBulletsService bulletsService, PlayerShooting.Settings settings)
         {
             _core = core;
+            _bulletsService = bulletsService;
             _settings = settings;
         }
 
@@ -38,7 +41,7 @@ namespace Player.Shooting
             if(!spawnPoint)
                 return;
             
-            
+            _bulletsService.SpawnBulletAt(spawnPoint.position, _core.Presenter.Direction);
         }
     }
 }

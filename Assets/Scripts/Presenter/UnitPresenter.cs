@@ -51,6 +51,12 @@ namespace Presenter
             set => _view.Rb.transform.rotation = value;
         }
 
+        public Vector3 Direction
+        {
+            get => -_view.Rb.transform.right;
+            set => _view.Rb.transform.right = -value;
+        }
+
         public float Drag
         {
             get => _view.Rb.drag;
@@ -66,14 +72,23 @@ namespace Presenter
         public bool IsPlayer
         {
             get => _view.IsPlayer;
-            set => _view.IsPlayer = value;
+            set
+            {
+                _view.IsPlayer = value;
+                SetCoreEvent(value);
+            }
         }
 
         public bool IsBullet
         {
-            get => _view.IsBullet;
-            set => _view.IsBullet = value;
+            set
+            {
+                _view.IsBullet = value;
+                SetCoreEvent(IsPlayer && !value);
+            }
         }
+
+        public bool IsDead => _model.Health <= 0;
 
         private readonly IUnitModel _model;
         private readonly IUnitView _view;
@@ -81,7 +96,6 @@ namespace Presenter
         public UnitPresenter(IUnitModel model, IUnitView view, Pool<IUnitPresenter> pool)
         {
             _view = view;
-            _view.OnPlayerHitsEnemy += TakeDamage;
             _model = model;
             _model.OnDestroyed += () => OnDestroyed?.Invoke();
             OnDestroyed += () => pool.Despawn(this);
@@ -90,6 +104,17 @@ namespace Presenter
         public void TakeDamage() => _model.TakeDamage();
         
         public void AddForce(Vector3 force) => _view.Rb.AddForce(force);
+
+        private void SetCoreEvent(bool isPlayerHitEnemy)
+        {
+            _view.OnPlayerHitsEnemy -= TakeDamage;
+            _view.OnEnemyHitsBullet -= TakeDamage;
+            
+            if(isPlayerHitEnemy)
+                _view.OnPlayerHitsEnemy += TakeDamage;
+            else
+                _view.OnEnemyHitsBullet += TakeDamage;
+        }
 
         public class Pool : Pool<IUnitPresenter>
         {

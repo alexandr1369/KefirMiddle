@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bullet;
 using Player.Shooting;
 using UnityEngine;
 using Zenject;
@@ -9,13 +10,15 @@ namespace Player
     public class PlayerShooting : ITickable
     {
         private readonly Core _core;
+        private readonly IBulletsService _bulletsService;
         private readonly Settings _settings;
         private readonly List<ITickable> _tickables = new();
         private readonly List<IShooting> _shootBehaviours = new();
 
-        private PlayerShooting(Core core, Settings settings)
+        private PlayerShooting(Core core, IBulletsService bulletsService, Settings settings)
         {
             _core = core;
+            _bulletsService = bulletsService;
             _settings = settings;
             
             InitShootBehaviours();
@@ -23,8 +26,8 @@ namespace Player
 
         private void InitShootBehaviours()
         {
-            var shootBehaviour1 = new SingleBulletShootBehaviour(_core, _settings);
-            var shootBehaviour2 = new TwoBulletsShootBehaviour(_core, _settings);
+            var shootBehaviour1 = new SingleBulletShootBehaviour(_core, _bulletsService, _settings);
+            var shootBehaviour2 = new TwoBulletsShootBehaviour(_core, _bulletsService, _settings);
             
             _shootBehaviours.Add(shootBehaviour1);
             _shootBehaviours.Add(shootBehaviour2);
@@ -34,6 +37,9 @@ namespace Player
 
         public void Tick()
         {
+            if(_core.Presenter.IsDead)
+                return;
+            
             _tickables.ForEach(tickable => tickable.Tick());
             
             if(PlayerInput.IsShootingBullets)
@@ -49,6 +55,7 @@ namespace Player
             [field: SerializeField] public float BulletsShootingDelay { get; private set; }   
             [field: SerializeField] public float ExtraShootingDelay { get; private set; } 
             [field: SerializeField] public float ExtraShootingReloadDelay { get; private set; }
+            [field: SerializeField] public float ExtraShootingDistanceMultiplier { get; private set; }
             [field: SerializeField] public int ExtraShootingMaxCount { get; private set; }
         }
     }

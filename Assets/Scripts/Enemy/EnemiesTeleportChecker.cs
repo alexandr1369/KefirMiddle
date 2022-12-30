@@ -4,7 +4,6 @@ using Zenject;
 
 namespace Enemy
 {
-    
     public class EnemiesTeleportChecker : ITickable
     {
         private readonly IEnemiesManager _manager;

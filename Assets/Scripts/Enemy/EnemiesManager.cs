@@ -64,7 +64,7 @@ namespace Enemy
         {
             var enemy = _factory.Create();
             enemy.Init(null);
-            enemy.Presenter.OnDestroyed += () => OnEnemyPresenterDestroyed(enemy);
+            enemy.Presenter.OnDestroyed += () => OnPresenterDestroyed(enemy);
             enemy.Presenter.LocalScale = EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
             enemy.Presenter.Position =
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
@@ -73,7 +73,7 @@ namespace Enemy
             Enemies.Add(enemy);
         }
 
-        private void OnEnemyPresenterDestroyed(Enemy enemy) => Enemies.Remove(enemy);
+        private void OnPresenterDestroyed(Enemy enemy) => Enemies.Remove(enemy);
 
         [Serializable]
         public class Settings

@@ -1,4 +1,5 @@
 using Bullet;
+using Bullet.LifeTimeChecker;
 using Factory;
 using UnityEngine;
 using Zenject;
@@ -7,13 +8,14 @@ namespace Installers
 {
     public class BulletInstaller : MonoInstaller
     {
-        [field: SerializeField] private BulletsManager.Settings Settings { get; set; }
+        [field: SerializeField] private BulletsService.Settings Settings { get; set; }
         
         public override void InstallBindings()
         {
             BindBullet();
             BindFactory();
             BindManager();
+            BindLifeTimeChecker();
         }
 
         private void BindBullet()
@@ -32,7 +34,14 @@ namespace Installers
 
         private void BindManager()
         {
-            Container.BindInterfacesAndSelfTo<BulletsManager>()
+            Container.BindInterfacesAndSelfTo<BulletsService>()
+                .AsSingle()
+                .WithArguments(Settings);
+        }
+
+        private void BindLifeTimeChecker()
+        {
+            Container.BindInterfacesAndSelfTo<BulletsLifeTimeChecker>()
                 .AsSingle()
                 .WithArguments(Settings);
         }

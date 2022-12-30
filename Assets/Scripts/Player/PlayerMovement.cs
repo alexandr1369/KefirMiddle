@@ -19,7 +19,13 @@ namespace Player
 
         public void Initialize() => SetMoveBehaviour(/*new NoMoveBehaviour()*/new PlayerMoveBehaviour(_core, _settings));
 
-        public void FixedTick() => _moveBehaviour.Move();
+        public void FixedTick()
+        {
+            if(_core.Presenter.IsDead)
+                return;
+            
+            _moveBehaviour.Move();
+        }
 
         public void SetMoveBehaviour(IMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
 

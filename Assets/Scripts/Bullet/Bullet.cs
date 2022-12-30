@@ -1,13 +1,16 @@
 using Presenter;
 using UnityEngine;
+using Zenject;
 
 namespace Bullet
 {
     public class Bullet : Core
     {
-        private readonly BulletsManager.Settings _settings;
+        private readonly BulletsService.Settings _settings;
 
-        protected Bullet(Utils.IFactory<IUnitPresenter> factory, BulletsManager.Settings settings) 
+        protected Bullet(
+            /*[InjectOptional(Id = "Bullets")]*/Utils.IFactory<IUnitPresenter> factory, 
+            BulletsService.Settings settings) 
             : base(factory)
         {
             _settings = settings;

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Settings>k__BackingField:
     <UnitViewPrefab>k__BackingField: {fileID: 6652061582140501478, guid: fa054033f627f40059f2aea021d90e8d, type: 3}
-    <UnitViewsCount>k__BackingField: 20
+    <UnitViewsCount>k__BackingField: 50

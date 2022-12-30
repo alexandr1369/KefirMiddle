@@ -44,6 +44,12 @@ namespace Installers
                 .To<UnitPresenter.Pool>()
                 .AsSingle()
                 .WithArguments(_settings.UnitViewsCount);
+            //
+            // Container.Bind(typeof(IInitializable), typeof(Pool<IUnitPresenter>))
+            //     .To<UnitPresenter.Pool>()
+            //     .AsSingle()
+            //     .WithConcreteId("Bullets")
+            //     .WithArguments(_settings.UnitViewsCount);
         }
 
         private void BindFactory()
@@ -51,6 +57,11 @@ namespace Installers
             Container.Bind<Utils.IFactory<IUnitPresenter>>()
                 .To<UnitPresenterFactory>()
                 .AsSingle();
+            //
+            // Container.Bind<Utils.IFactory<IUnitPresenter>>()
+            //     .To<UnitPresenterFactory>()
+            //     .AsSingle()
+            //     .WithConcreteId("Bullets");
         }
     }
 }
