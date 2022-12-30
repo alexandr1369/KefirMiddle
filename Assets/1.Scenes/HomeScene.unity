@@ -457,6 +457,7 @@ MonoBehaviour:
     <BulletsShootingDelay>k__BackingField: 0.2
     <ExtraShootingDelay>k__BackingField: 0.2
     <ExtraShootingReloadDelay>k__BackingField: 5
+    <ExtraShootingDistanceMultiplier>k__BackingField: 2
     <ExtraShootingMaxCount>k__BackingField: 5
   <PlayerSpawnPoint>k__BackingField: {fileID: 1332381167}
 --- !u!4 &1162501236
@@ -870,8 +871,8 @@ MonoBehaviour:
     <Material>k__BackingField: {fileID: 2100000, guid: a7a4a87af7fdbd44da0519a1910c7393, type: 2}
     <Mesh>k__BackingField: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     <LocalScale>k__BackingField: {x: 1, y: 1, z: 1}
-    <TeleportCheckerDelay>k__BackingField: 0.2
     <LifeTimeDuration>k__BackingField: 1
+    <LifeTimeCheckDelay>k__BackingField: 0
     <StartVelocity>k__BackingField: 30
     <Drag>k__BackingField: 0
 --- !u!4 &2035819917
