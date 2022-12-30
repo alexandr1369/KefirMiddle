@@ -24,7 +24,7 @@ namespace Player
         private void InitShootBehaviours()
         {
             var shootBehaviour1 = new SingleBulletShootBehaviour(_core, _settings);
-            var shootBehaviour2 = new TwoBulletShootBehaviour(_core, _settings);
+            var shootBehaviour2 = new TwoBulletsShootBehaviour(_core, _settings);
             
             _shootBehaviours.Add(shootBehaviour1);
             _shootBehaviours.Add(shootBehaviour2);

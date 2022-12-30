@@ -69,6 +69,12 @@ namespace Presenter
             set => _view.IsPlayer = value;
         }
 
+        public bool IsBullet
+        {
+            get => _view.IsBullet;
+            set => _view.IsBullet = value;
+        }
+
         private readonly IUnitModel _model;
         private readonly IUnitView _view;
 

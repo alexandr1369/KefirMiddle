@@ -15,6 +15,7 @@ public class Core
         Presenter = _factory.Create();
         Presenter.IsActive = true;
         Presenter.IsPlayer = true;
+        Presenter.IsBullet = false;
         Presenter.Parent = parent;
     }
 }

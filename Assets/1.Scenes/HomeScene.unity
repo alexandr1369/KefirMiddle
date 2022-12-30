@@ -832,6 +832,7 @@ MonoBehaviour:
     <MinScale>k__BackingField: 1
     <MaxScale>k__BackingField: 4
     <SpawnDelay>k__BackingField: 1
+    <TeleportCheckerDelay>k__BackingField: 0.2
     <StartCount>k__BackingField: 7
     <MaxCount>k__BackingField: 15
     <StartVelocity>k__BackingField: 20
@@ -865,6 +866,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed36efcf14247d9a55c210c8f242d66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Settings>k__BackingField:
+    <Material>k__BackingField: {fileID: 2100000, guid: a7a4a87af7fdbd44da0519a1910c7393, type: 2}
+    <Mesh>k__BackingField: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+    <TeleportCheckerDelay>k__BackingField: 0.2
+    <StartVelocity>k__BackingField: 30
+    <Drag>k__BackingField: 0
 --- !u!4 &2035819917
 Transform:
   m_ObjectHideFlags: 0

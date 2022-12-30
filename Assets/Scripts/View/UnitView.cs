@@ -23,6 +23,8 @@ namespace View
         }
 
         public bool IsPlayer { get; set; }
+        
+        public bool IsBullet { get; set; }
 
         private void OnTriggerEnter(Collider other)
         {

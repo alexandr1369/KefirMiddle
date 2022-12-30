@@ -14,13 +14,21 @@ namespace Enemy
         private readonly Utils.IFactory<Enemy> _factory;
         private readonly ISceneBoundsService _service;
         private float _currentSpawnDelay;
+        private bool _isActive;
 
         private EnemiesManager(Utils.IFactory<Enemy> factory, ISceneBoundsService service, Settings settings)
         {
             _factory = factory;
             _service = service;
             ManagerSettings = settings;
+            
+            // TODO: move to operation
+            Start();
         }
+
+        public void Start() => _isActive = true;
+
+        public void Stop() => _isActive = false;
 
         public void Tick()
         {
@@ -33,6 +41,9 @@ namespace Enemy
 
         private bool IsContinuing()
         {
+            if(!_isActive)
+                return true;
+            
             if (Enemies.Count < ManagerSettings.StartCount)
                 return false;
 

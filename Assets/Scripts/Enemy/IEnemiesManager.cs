@@ -6,5 +6,7 @@ namespace Enemy
     {
         List<Enemy> Enemies { get; }
         EnemiesManager.Settings ManagerSettings { get; }
+        void Start();
+        void Stop();
     }
 }

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Player.Shooting
 {
-    public class TwoBulletShootBehaviour : ITickable, IShooting
+    public class TwoBulletsShootBehaviour : ITickable, IShooting
     {
         private readonly Core _core;
         private readonly PlayerShooting.Settings _settings;
@@ -12,7 +12,7 @@ namespace Player.Shooting
         private float _extraShootingReloadDelay;
         private int _extraShootingCount;
 
-        public TwoBulletShootBehaviour(Core core, PlayerShooting.Settings settings)
+        public TwoBulletsShootBehaviour(Core core, PlayerShooting.Settings settings)
         {
             _core = core;
             _settings = settings;

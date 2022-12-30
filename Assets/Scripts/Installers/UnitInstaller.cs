@@ -1,4 +1,5 @@
 using Factory;
+using Location;
 using Presenter;
 using Utils;
 using Zenject;
@@ -14,11 +15,19 @@ namespace Installers
         
         public override void InstallBindings()
         {
+            BindTeleportCheckService();
             BindPresenter();
             BindPool();
             BindFactory();
         }
 
+        private void BindTeleportCheckService()
+        {
+            Container.Bind<ITeleportCheckService>()
+                .To<TeleportCheckService>()
+                .AsSingle();
+        }
+        
         private void BindPresenter()
         {
             Container.Bind<IUnitPresenter>()
