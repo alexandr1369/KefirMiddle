@@ -1,7 +1,6 @@
-using LoadingSystem.Loading.Operations.Home;
 using UnityEngine.SceneManagement;
 
-namespace LoadingSystem.Loading.Operations
+namespace LoadingSystem.Loading.Operations.Home
 {
     public class HomeSceneLoadingSequence : LoadingSequence
     {

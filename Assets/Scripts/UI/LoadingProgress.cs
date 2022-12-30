@@ -12,7 +12,7 @@ namespace UI
             if (!Indicator)
                 return;
             
-            Indicator.fillAmount = value;
+            Indicator.fillAmount = value; 
         }
     }
 }

@@ -55,17 +55,4 @@ namespace Utils
     {
         void OnInteractionsRestrictionsChanged();
     }
-
-    public interface IInputDelegate
-    {
-        delegate bool InputRestriction(object target);
-        void AddRestriction(InputRestriction inputRestriction);
-        public void RemoveRestriction(InputRestriction inputRestriction);
-        /// <summary>
-        /// Проверка на дозволенность инпута для таргетируемого объекта.
-        /// </summary>
-        /// <param name="obj">Таргер-объект.</param>
-        /// <returns>Если хотя бы один делегат за интеракт с объектом - вернуть true.</returns>
-        public bool HasPermission(object obj); 
-    }
 }

@@ -13,11 +13,8 @@ using Zenject;
 
 namespace LoadingSystem.Loading
 {
-    [RequireComponent(typeof(CanvasGroup))]
-    public class SceneLoadingService : MonoBehaviour
+    public class SceneLoadingService : MonoBehaviour, ISceneLoadingService
     {
-        private static readonly IInputDelegate.InputRestriction ActionsRestriction = _ => false;
-
         [field: SerializeField] private CanvasGroup CanvasGroup { get; set; }
         [field: SerializeField] private LoadingProgress ProgressBar { get; set; }
         
@@ -119,13 +116,13 @@ namespace LoadingSystem.Loading
         private void StartLoading()
         {
             LoadingInProgress = true;
-            _inputDelegate.AddRestriction(ActionsRestriction);
+            _inputDelegate.AddRestriction(ISceneLoadingService.ActionsRestriction);
         }
 
         private void CompleteLoading()
         {
             LoadingInProgress = false;
-            _inputDelegate.RemoveRestriction(ActionsRestriction);
+            _inputDelegate.RemoveRestriction(ISceneLoadingService.ActionsRestriction);
         }
 
         public void AddListener(ISceneLoadingListener listener)
@@ -149,11 +146,5 @@ namespace LoadingSystem.Loading
             _destroyCts?.Cancel();
             _destroyCts?.Dispose();
         }
-    }
-    
-    public interface ISceneLoadingListener
-    {
-        void OnLoadingStarted();
-        void OnLoadingCompleted();
     }
 }
