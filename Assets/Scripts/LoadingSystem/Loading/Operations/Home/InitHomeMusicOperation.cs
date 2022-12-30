@@ -4,14 +4,14 @@ namespace LoadingSystem.Loading.Operations.Home
 {
     public class InitHomeMusicOperation : LoadingOperation
     {
-        // private readonly IAudioService _audioService;
+        private readonly HomeSceneLoadingContext _context;
         
-        // public InitHomeMusicOperation(IAudioService audioService) => _audioService = audioService;
+        public InitHomeMusicOperation(HomeSceneLoadingContext context) => _context = context;
 
         public override async UniTask Load()
         {
-            // _audioService.PreloadHomeAudio();
-            // _audioService.PlayHomeMusic();
+            _context.AudioService.PreloadHomeAudio();
+            _context.AudioService.PlayHomeMusic();
          
             await UniTask.Yield();
         }

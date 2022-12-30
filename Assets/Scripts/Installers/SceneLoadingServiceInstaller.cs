@@ -12,7 +12,8 @@ namespace Installers
         {
             var service = Container.InstantiatePrefabForComponent<SceneLoadingService>(SceneLoadingServicePrefab);
             
-            Container.Bind<SceneLoadingService>()
+            Container.Bind<ISceneLoadingService>()
+                .To<SceneLoadingService>()
                 .FromComponentsOn(service.gameObject)
                 .AsSingle(); 
         }

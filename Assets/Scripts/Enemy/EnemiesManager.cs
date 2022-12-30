@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using LoadingSystem.Loading.Operations.Home;
 using Location;
 using UnityEngine;
 using Zenject;
@@ -16,14 +17,14 @@ namespace Enemy
         private float _currentSpawnDelay;
         private bool _isActive;
 
-        private EnemiesManager(Factory.IFactory<Enemy> factory, ISceneBoundsService service, Settings settings)
+        private EnemiesManager(Factory.IFactory<Enemy> factory, ISceneBoundsService service, Settings settings,
+            HomeSceneLoadingContext context)
         {
             _factory = factory;
             _service = service;
             ManagerSettings = settings;
-            
-            // TODO: move to operation
-            Start();
+            context.EnemiesManager = this;
+            Debug.Log("Setting enemies manager to context");
         }
 
         public void Start() => _isActive = true;

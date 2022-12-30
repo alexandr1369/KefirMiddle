@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Movement;
+using Player.Movement;
 using UnityEngine;
 using Zenject;
 

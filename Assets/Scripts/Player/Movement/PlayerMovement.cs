@@ -1,27 +1,30 @@
 using System;
+using LoadingSystem.Loading.Operations.Home;
 using Movement;
 using UnityEngine;
 using Zenject;
 
-namespace Player
+namespace Player.Movement
 {
     public class PlayerMovement : IInitializable, IFixedTickable, IPlayerMovement
     {
-        private readonly Core _core;
-        private readonly Settings _settings;
+        public Core Core { get; }
+        public Settings MovementSettings { get; }
+        
         private IMovable _moveBehaviour;
 
-        private PlayerMovement(Core core, Settings settings)
+        private PlayerMovement(Core core, Settings settings, HomeSceneLoadingContext context)
         {
-            _core = core;
-            _settings = settings;
+            Core = core;
+            MovementSettings = settings;
+            context.PlayerMovement = this;
         }
 
-        public void Initialize() => SetMoveBehaviour(/*new NoMoveBehaviour()*/new PlayerMoveBehaviour(_core, _settings));
+        public void Initialize() => SetMoveBehaviour(new NoMoveBehaviour());
 
         public void FixedTick()
         {
-            if(_core.Presenter.IsDead)
+            if(Core.Presenter.IsDead)
                 return;
             
             _moveBehaviour.Move();
@@ -34,10 +37,5 @@ namespace Player
         {
             [field: SerializeField] public float MovementSpeed { get; private set; }   
         }
-    }
-
-    public interface IPlayerMovement
-    {
-        void SetMoveBehaviour(IMovable moveBehaviour);
     }
 }

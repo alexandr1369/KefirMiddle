@@ -1,25 +1,31 @@
 using System;
 using System.Collections.Generic;
 using Bullet;
-using Player.Shooting;
+using LoadingSystem.Loading.Operations.Home;
 using UnityEngine;
+using Utils;
 using Zenject;
 
-namespace Player
+namespace Player.Shooting
 {
-    public class PlayerShooting : ITickable
+    public class PlayerShooting : ITickable, IPlayerShooting
     {
         private readonly Core _core;
         private readonly IBulletsService _bulletsService;
         private readonly Settings _settings;
+        private readonly IInputDelegate _inputDelegate;
         private readonly List<ITickable> _tickables = new();
         private readonly List<IShooting> _shootBehaviours = new();
+        private bool _isActive;
 
-        private PlayerShooting(Core core, IBulletsService bulletsService, Settings settings)
+        private PlayerShooting(Core core, IBulletsService bulletsService, Settings settings,
+         HomeSceneLoadingContext context, IInputDelegate inputDelegate)
         {
             _core = core;
             _bulletsService = bulletsService;
             _settings = settings;
+            _inputDelegate = inputDelegate;
+            context.PlayerShooting = this;
             
             InitShootBehaviours();
         }
@@ -35,13 +41,20 @@ namespace Player
             _tickables.Add(shootBehaviour2);
         }
 
+        public void Start() => _isActive = true;
+
+        public void Stop() => _isActive = false;
+
         public void Tick()
         {
-            if(_core.Presenter.IsDead)
+            if (!_inputDelegate.HasPermission(this)
+                || !_isActive
+                || _core.Presenter.IsDead)
+            {
                 return;
-            
+            }
+
             _tickables.ForEach(tickable => tickable.Tick());
-            
             if(PlayerInput.IsShootingBullets)
                 _shootBehaviours[0].Shoot();
             

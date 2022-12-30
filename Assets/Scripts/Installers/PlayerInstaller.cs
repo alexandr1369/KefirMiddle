@@ -1,4 +1,6 @@
 using Player;
+using Player.Movement;
+using Player.Shooting;
 using Player.SpawnPoint;
 using UnityEngine;
 using Zenject;
