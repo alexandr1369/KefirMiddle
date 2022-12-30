@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Factory;
 using UnityEngine;
 
 namespace Bullet
@@ -11,9 +12,9 @@ namespace Bullet
         public List<Bullet> Bullets { get; } = new();
         public Settings ServiceSettings { get; }
 
-        private readonly Utils.IFactory<Bullet> _factory;
+        private readonly IFactory<Bullet> _factory;
 
-        private BulletsService(Utils.IFactory<Bullet> factory, Settings settings)
+        private BulletsService(IFactory<Bullet> factory, Settings settings)
         {
             _factory = factory;
             ServiceSettings = settings;
@@ -40,8 +41,8 @@ namespace Bullet
             [field: SerializeField] public Material Material { get; private set; }
             [field: SerializeField] public Mesh Mesh { get; private set; }
             [field: SerializeField] public Vector3 LocalScale { get; private set; }
-            [field: SerializeField] public float TeleportCheckerDelay { get; private set; }
             [field: SerializeField] public float LifeTimeDuration { get; private set; }
+            [field: SerializeField] public float LifeTimeCheckDelay { get; private set; }
             [field: SerializeField] public float StartVelocity { get; private set; }
             [field: SerializeField] public float Drag { get; private set; }
         }

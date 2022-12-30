@@ -22,11 +22,15 @@ namespace Bullet.LifeTimeChecker
 
         public void Tick()
         {
-            return;
-            
+            if (_currentDelay > 0)
+            {
+                _currentDelay -= Time.deltaTime;
+                return;
+            }
+
             var currentDateTime = DateTime.Now;
-            
             ContinueDatasetsCheck(currentDateTime);
+            _currentDelay = _settings.LifeTimeCheckDelay;
         }
 
         private void ContinueDatasetsCheck(DateTime currentDateTime)
@@ -41,14 +45,15 @@ namespace Bullet.LifeTimeChecker
                 
                 var bullet = data.Bullet;
                 _bulletsToBeRemoved.Add(bullet);
-                _service.Bullets.Remove(bullet);
             });
             
             _bulletsToBeRemoved.ForEach(bullet =>
             {
-                bullet.Presenter.TakeDamage();
                 Remove(bullet);
+                _service.Bullets.Remove(bullet);
+                bullet.Presenter.TakeDamage();
             });
+            _bulletsToBeRemoved.Clear();
         }
 
         public void Add(Bullet bullet)

@@ -27,7 +27,7 @@ namespace Installers
 
         private void BindFactory()
         {
-            Container.Bind<Utils.IFactory<Bullet.Bullet>>()
+            Container.Bind<Factory.IFactory<Bullet.Bullet>>()
                 .To<BulletsFactory>()
                 .AsSingle();
         }

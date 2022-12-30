@@ -2,7 +2,7 @@ using Zenject;
 
 namespace Factory
 {
-    public class EnemiesFactory : Utils.IFactory<Enemy.Enemy>
+    public class EnemiesFactory : IFactory<Enemy.Enemy>
     {
         private DiContainer _diContainer;
 

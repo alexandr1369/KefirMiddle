@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Factory
 {
-    public class UnitPresenterFactory : Utils.IFactory<IUnitPresenter>
+    public class UnitPresenterFactory : IFactory<IUnitPresenter>
     {
         private Pool<IUnitPresenter> _pool;
 

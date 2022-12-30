@@ -11,12 +11,12 @@ namespace Enemy
         public List<Enemy> Enemies { get; } = new();
         public Settings ManagerSettings { get; }
 
-        private readonly Utils.IFactory<Enemy> _factory;
+        private readonly Factory.IFactory<Enemy> _factory;
         private readonly ISceneBoundsService _service;
         private float _currentSpawnDelay;
         private bool _isActive;
 
-        private EnemiesManager(Utils.IFactory<Enemy> factory, ISceneBoundsService service, Settings settings)
+        private EnemiesManager(Factory.IFactory<Enemy> factory, ISceneBoundsService service, Settings settings)
         {
             _factory = factory;
             _service = service;

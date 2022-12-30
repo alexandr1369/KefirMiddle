@@ -17,7 +17,7 @@ namespace Presenter
         Quaternion Rotation { get; set; }
         Vector3 Direction { get; set; }
         float Drag { set; }
-        bool IsActive { set; }
+        bool IsActive { get; set; }
         bool IsPlayer { set; }
         bool IsBullet { set; }
         bool IsDead { get; }

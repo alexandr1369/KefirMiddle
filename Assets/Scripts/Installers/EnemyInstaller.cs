@@ -26,7 +26,7 @@ namespace Installers
 
         private void BindFactory()
         {
-            Container.Bind<Utils.IFactory<Enemy.Enemy>>()
+            Container.Bind<Factory.IFactory<Enemy.Enemy>>()
                 .To<EnemiesFactory>()
                 .AsSingle();
         }

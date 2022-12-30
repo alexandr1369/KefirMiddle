@@ -31,7 +31,7 @@ namespace Utils
 
         public T Spawn()
         {
-            var item = Items[^1];
+            var item = Items.Find(item => !item.IsActive);
             Items.Remove(item);
             item.IsActive = true;
             

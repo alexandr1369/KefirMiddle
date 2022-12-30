@@ -1,4 +1,4 @@
-namespace Utils
+namespace Factory
 {
     public interface IFactory<out T>
     {

@@ -1,3 +1,4 @@
+using Factory;
 using Presenter;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ namespace Enemy
     {
         private readonly EnemiesManager.Settings _settings;
 
-        protected Enemy(Utils.IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings) 
+        protected Enemy(IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings) 
             : base(factory)
         {
             _settings = settings;
