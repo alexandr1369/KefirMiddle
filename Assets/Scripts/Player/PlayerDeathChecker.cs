@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
+using LoadingSystem.Loading.Operations.Home;
 using Movement;
 using Player.Movement;
-using UnityEngine;
 using Zenject;
 
 namespace Player
@@ -10,11 +10,13 @@ namespace Player
     {
         private readonly Core _core;
         private readonly IPlayerMovement _movement;
+        private readonly HomeSceneLoadingContext _context;
 
-        private PlayerDeathChecker(Core core, IPlayerMovement movement)
+        private PlayerDeathChecker(Core core, IPlayerMovement movement, HomeSceneLoadingContext context)
         {
             _core = core;
             _movement = movement;
+            _context = context;
         }
 
         public async void Initialize()
@@ -28,10 +30,8 @@ namespace Player
         {
             _movement.SetMoveBehaviour(new NoMoveBehaviour());
             
-            Debug.Log("Player lost!");
-            
-            // TODO: restart game with ISceneLoader
-            
+            // TODO: defeat dialogue
+            _context.SceneLoadingService.RestartCurrentLocation();
         }
     }
 }
