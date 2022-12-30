@@ -6,6 +6,9 @@ using View;
 
 namespace Presenter
 {
+    /// <summary>
+    /// Base presenter for all units.
+    /// </summary>
     public class UnitPresenter : IUnitPresenter
     {
         public event Action OnDestroyed;
@@ -21,6 +24,7 @@ namespace Presenter
         public Transform Transform => _view.Rb.transform;
 
         public MeshRenderer MeshRenderer => _view.MeshRenderer;
+        
         public MeshFilter MeshFilter => _view.MeshFilter;
 
         public Vector3 Position

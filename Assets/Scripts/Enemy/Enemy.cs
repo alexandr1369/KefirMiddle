@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy
 {
-    public class Enemy : Player.Player
+    public class Enemy : Core
     {
         private readonly EnemiesManager.Settings _settings;
 

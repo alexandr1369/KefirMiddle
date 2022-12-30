@@ -5,12 +5,19 @@ using Zenject;
 
 namespace Player
 {
-    public class PlayerMovement : IFixedTickable, IPlayerMovement
+    public class PlayerMovement : IInitializable, IFixedTickable, IPlayerMovement
     {
+        private readonly Core _core;
+        private readonly Settings _settings;
         private IMovable _moveBehaviour;
 
-        private PlayerMovement(Player player, Settings settings) => 
-            SetMoveBehaviour(new MovableMoveBehaviour(player, settings));
+        private PlayerMovement(Core core, Settings settings)
+        {
+            _core = core;
+            _settings = settings;
+        }
+
+        public void Initialize() => SetMoveBehaviour(/*new NoMoveBehaviour()*/new PlayerMoveBehaviour(_core, _settings));
 
         public void FixedTick() => _moveBehaviour.Move();
 

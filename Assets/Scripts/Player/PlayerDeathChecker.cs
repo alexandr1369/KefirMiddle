@@ -7,12 +7,12 @@ namespace Player
 {
     public class PlayerDeathChecker : IInitializable
     {
-        private readonly Player _player;
+        private readonly Core _core;
         private readonly IPlayerMovement _movement;
 
-        private PlayerDeathChecker(Player player, IPlayerMovement movement)
+        private PlayerDeathChecker(Core core, IPlayerMovement movement)
         {
-            _player = player;
+            _core = core;
             _movement = movement;
         }
 
@@ -20,7 +20,7 @@ namespace Player
         {
             await UniTask.Yield();
             
-            _player.Presenter.OnDestroyed += OnDestroyed;
+            _core.Presenter.OnDestroyed += OnDestroyed;
         }
 
         private void OnDestroyed()

@@ -13,7 +13,7 @@ namespace Installers
         {
             BindEnemy();
             BindFactory();
-            BindEnemiesManager();
+            BindManager();
             BindTeleportChecker();
         }
 
@@ -31,7 +31,7 @@ namespace Installers
                 .AsSingle();
         }
 
-        private void BindEnemiesManager()
+        private void BindManager()
         {
             Container.BindInterfacesAndSelfTo<EnemiesManager>()
                 .AsSingle()

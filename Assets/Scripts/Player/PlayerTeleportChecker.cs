@@ -8,19 +8,19 @@ namespace Player
     public class PlayerTeleportChecker : ITickable
     {
         private readonly ISceneBoundsService _sceneBoundsService;
-        private readonly Player _player;
+        private readonly Core _core;
 
-        private PlayerTeleportChecker(Player player, ISceneBoundsService sceneBoundsService)
+        private PlayerTeleportChecker(Core core, ISceneBoundsService sceneBoundsService)
         {
             _sceneBoundsService = sceneBoundsService;
-            _player = player;
+            _core = core;
         }
 
         public void Tick() => CheckForTeleport();
 
         private void CheckForTeleport()
         {
-            var presenter = _player.Presenter;
+            var presenter = _core.Presenter;
             var scale = presenter.LocalScale.x;
             
             if (presenter.Position.x > _sceneBoundsService.Right + scale && IsMovingInDirection(Vector3.right))
@@ -42,6 +42,6 @@ namespace Player
         }
         
         private bool IsMovingInDirection(Vector3 dir) => 
-            Vector3.Dot(dir, _player.Presenter.Velocity) > 0;
+            Vector3.Dot(dir, _core.Presenter.Velocity) > 0;
     }
 }

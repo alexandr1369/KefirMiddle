@@ -8,12 +8,12 @@ namespace Player
 {
     public class PlayerTurning : IFixedTickable
     {
-        private readonly Player _player;
+        private readonly Core _core;
         private readonly IHomeSceneCamera _camera;
 
-        private PlayerTurning(Player player, IHomeSceneCamera camera)
+        private PlayerTurning(Core core, IHomeSceneCamera camera)
         {
-            _player = player;
+            _core = core;
             _camera = camera;
         }
 
@@ -23,11 +23,11 @@ namespace Player
             var mousePosition = mouseRay.origin;
             mousePosition.z = 0;
 
-            var targetDirection = mousePosition - _player.Presenter.Position;
+            var targetDirection = mousePosition - _core.Presenter.Position;
             targetDirection.z = 0;
             targetDirection.Normalize();
 
-            _player.Presenter.Rotation = 
+            _core.Presenter.Rotation = 
                 Quaternion.LookRotation(targetDirection) * Quaternion.AngleAxis(90, Vector3.up);
         }
     }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Player.Shooting;
 using UnityEngine;
 using Zenject;
 
@@ -6,79 +8,41 @@ namespace Player
 {
     public class PlayerShooting : ITickable
     {
-        private readonly Player _player;
+        private readonly Core _core;
         private readonly Settings _settings;
-        private float _bulletsShootingDelay;
-        private float _extraShootingDelay;
-        private float _extraShootingReloadDelay;
-        private int _extraShootingCount;
+        private readonly List<ITickable> _tickables = new();
+        private readonly List<IShooting> _shootBehaviours = new();
 
-        private PlayerShooting(Player player, Settings settings)
+        private PlayerShooting(Core core, Settings settings)
         {
-            _player = player;
+            _core = core;
             _settings = settings;
-            _extraShootingCount = _settings.ExtraShootingMaxCount;
+            
+            InitShootBehaviours();
         }
-        
+
+        private void InitShootBehaviours()
+        {
+            var shootBehaviour1 = new SingleBulletShootBehaviour(_core, _settings);
+            var shootBehaviour2 = new TwoBulletShootBehaviour(_core, _settings);
+            
+            _shootBehaviours.Add(shootBehaviour1);
+            _shootBehaviours.Add(shootBehaviour2);
+            _tickables.Add(shootBehaviour1);
+            _tickables.Add(shootBehaviour2);
+        }
+
         public void Tick()
         {
-            Continue();
+            _tickables.ForEach(tickable => tickable.Tick());
             
-            if(PlayerInput.IsShootingBullets && _bulletsShootingDelay <= 0)
-                ShootBullet();
+            if(PlayerInput.IsShootingBullets)
+                _shootBehaviours[0].Shoot();
             
-            if(PlayerInput.IsShootingExtra && _extraShootingDelay <= 0)
-                ShootExtra();
-
-            void Continue()
-            {
-                if(_bulletsShootingDelay > 0)
-                    _bulletsShootingDelay -= Time.deltaTime;
-                
-                if(_extraShootingDelay > 0)
-                    _extraShootingDelay -= Time.deltaTime;
-
-                if (_extraShootingCount >= _settings.ExtraShootingMaxCount) 
-                    return;
-                
-                _extraShootingReloadDelay -= Time.deltaTime;
-
-                if (_extraShootingReloadDelay > 0) 
-                    return;
-                    
-                _extraShootingReloadDelay = _settings.ExtraShootingReloadDelay;
-                _extraShootingCount = Math.Clamp(_extraShootingCount + 1, 0, _settings.ExtraShootingMaxCount);
-            }
+            if(PlayerInput.IsShootingExtra)
+                _shootBehaviours[1].Shoot();
         }
 
-        private void ShootBullet()
-        {
-            if (_bulletsShootingDelay > 0)
-                return;
-
-            SpawnBullet();
-            _bulletsShootingDelay = _settings.BulletsShootingDelay;
-        }
-
-        private void ShootExtra()
-        {
-            if (_extraShootingDelay > 0 || _extraShootingCount <= 0)
-                return;
-
-            _extraShootingDelay = _settings.ExtraShootingDelay;
-            _extraShootingCount--;
-        }
-
-        private void SpawnBullet(Vector3 offset = default)
-        {
-            var spawnPoint = _player.Presenter.BulletsSpawnPoint;
-            
-            if(!spawnPoint)
-                return;
-            
-            
-        }
-        
         [Serializable]
         public class Settings
         {

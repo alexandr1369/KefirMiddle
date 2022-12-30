@@ -32,7 +32,7 @@ namespace Installers
 
         private void BindPlayer()
         {
-            Container.Bind<Player.Player>()
+            Container.Bind<Core>()
                 .AsSingle();
         }
 

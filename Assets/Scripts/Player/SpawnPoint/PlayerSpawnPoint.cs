@@ -5,14 +5,14 @@ namespace Player.SpawnPoint
 {
     public class PlayerSpawnPoint : MonoBehaviour, ISpawnPoint
     {
-        private Player _player;
+        private Core _core;
         
         [Inject]
-        private void Construct(Player player) => _player = player;
+        private void Construct(Core core) => _core = core;
 
         // TODO: вынести в сиквенс загрузки
         private void Start() => Respawn();
 
-        public void Respawn() => _player.Init(transform);
+        public void Respawn() => _core.Init(transform);
     }
 }

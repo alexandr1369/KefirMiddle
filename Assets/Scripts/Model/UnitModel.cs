@@ -2,6 +2,9 @@ using System;
 
 namespace Model
 {
+    /// <summary>
+    /// Base model for all units.
+    /// </summary>
     public class UnitModel : IUnitModel
     {
         public event Action<int> OnTookDamage;

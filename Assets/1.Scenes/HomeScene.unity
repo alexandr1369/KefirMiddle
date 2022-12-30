@@ -382,6 +382,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 294763626}
   - {fileID: 849536696}
+  - {fileID: 2035819916}
   - {fileID: 1162501235}
   - {fileID: 1589144974}
   _installerPrefabs: []
@@ -415,6 +416,7 @@ Transform:
   m_Children:
   - {fileID: 294763627}
   - {fileID: 849536697}
+  - {fileID: 2035819917}
   - {fileID: 1162501236}
   - {fileID: 1589144973}
   m_Father: {fileID: 0}
@@ -834,3 +836,47 @@ MonoBehaviour:
     <MaxCount>k__BackingField: 15
     <StartVelocity>k__BackingField: 20
     <Drag>k__BackingField: 0
+--- !u!1 &2035819915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2035819917}
+  - component: {fileID: 2035819916}
+  m_Layer: 0
+  m_Name: BulletInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2035819916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035819915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed36efcf14247d9a55c210c8f242d66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2035819917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035819915}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 869467862}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

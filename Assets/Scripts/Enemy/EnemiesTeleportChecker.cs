@@ -9,6 +9,7 @@ namespace Enemy
     {
         private readonly IEnemiesManager _manager;
         private readonly ISceneBoundsService _sceneBoundsService;
+        private float _currentDelay;
 
         private EnemiesTeleportChecker(IEnemiesManager manager, ISceneBoundsService sceneBoundsService)
         {
@@ -16,7 +17,17 @@ namespace Enemy
             _sceneBoundsService = sceneBoundsService;
         }
 
-        public void Tick() => _manager.Enemies.ForEach(CheckForTeleport);
+        public void Tick()
+        {
+            if (_currentDelay > 0)
+            {
+                _currentDelay -= Time.deltaTime;
+                return;
+            }
+            
+            _currentDelay = _manager.ManagerSettings.TeleportCheckerDelay;
+            _manager.Enemies.ForEach(CheckForTeleport);
+        }
 
         private void CheckForTeleport(Enemy enemy)
         {

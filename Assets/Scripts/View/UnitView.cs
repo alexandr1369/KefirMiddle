@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace View
 {
+    /// <summary>
+    /// Base view for all units.
+    /// </summary>
     public class UnitView : MonoBehaviour, IUnitView
     {
         public event Action OnEnemyHitsBullet;
