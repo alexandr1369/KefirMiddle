@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utils.Assets
+namespace Utils.Asset
 {
     public class RuntimeAssets<T> : ScriptableObject where T : Object
     {

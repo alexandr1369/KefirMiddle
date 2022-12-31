@@ -6,7 +6,7 @@ namespace Presenter
     public interface IUnitPresenter
     {
         event Action OnDestroyed;
-        Transform Parent { set; }
+        Transform Parent { get; set; }
         Transform BulletsSpawnPoint { get; }
         Transform Transform { get; }
         MeshRenderer MeshRenderer { get; }

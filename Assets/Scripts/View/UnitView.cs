@@ -1,4 +1,5 @@
 using System;
+using Fx;
 using LoadingSystem.Loading.Operations.Home;
 using UnityEngine;
 using Zenject;
@@ -49,14 +50,17 @@ namespace View
             var playerHitsEnemy = IsPlayer && !unitView.IsPlayer && !unitView.IsBullet;
             var enemyHitsBullet = !IsPlayer && !IsBullet && unitView.IsBullet;
 
+            if (!playerHitsEnemy && !enemyHitsBullet)
+                return;
+            
             if (playerHitsEnemy) 
                 OnPlayerHitsEnemy?.Invoke();
 
             if (enemyHitsBullet) 
                 OnEnemyHitsBullet?.Invoke();
-            
-            if(playerHitsEnemy || enemyHitsBullet)
-                _context.AudioService.PlayGlobalFx(_context.AudioService.DestroyClip);
+
+            _context.AudioService.PlayGlobalFx(_context.AudioService.DestroyClip);
+            _context.FxService.PlayAt(FxType.Boom, transform.position);
         }
     }
 }

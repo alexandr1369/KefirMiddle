@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
-using Utils.Assets;
+using Utils.Asset;
 
 namespace Editor.AutoItems
 {

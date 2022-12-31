@@ -1,7 +1,7 @@
 using System;
 using Model;
 using UnityEngine;
-using Utils;
+using Utils.Pool;
 using View;
 
 namespace Presenter
@@ -95,7 +95,7 @@ namespace Presenter
         private readonly IUnitModel _model;
         private readonly IUnitView _view;
 
-        public UnitPresenter(IUnitModel model, IUnitView view, Pool<IUnitPresenter> pool)
+        public UnitPresenter(IUnitModel model, IUnitView view, UnitPresenterPool<IUnitPresenter> pool)
         {
             _view = view;
             _model = model;
@@ -118,7 +118,7 @@ namespace Presenter
                 _view.OnEnemyHitsBullet += TakeDamage;
         }
 
-        public class Pool : Pool<IUnitPresenter>
+        public class Pool : UnitPresenterPool<IUnitPresenter>
         {
         }
     }

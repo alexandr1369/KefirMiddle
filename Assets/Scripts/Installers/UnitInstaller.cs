@@ -2,6 +2,7 @@ using Factory;
 using Location;
 using Presenter;
 using Utils;
+using Utils.Pool;
 using Zenject;
 
 namespace Installers
@@ -40,7 +41,7 @@ namespace Installers
 
         private void BindPool()
         {
-            Container.Bind(typeof(IInitializable), typeof(Pool<IUnitPresenter>))
+            Container.Bind(typeof(IInitializable), typeof(UnitPresenterPool<IUnitPresenter>))
                 .To<UnitPresenter.Pool>()
                 .AsSingle()
                 .WithArguments(_settings.UnitViewsCount);

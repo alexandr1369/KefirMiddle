@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Utils.Assets
+namespace Utils.Asset
 {
     [Serializable]
     public class RuntimeAsset<T> where T : Object

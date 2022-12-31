@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using Presenter;
 using Zenject;
 
-namespace Utils
+namespace Utils.Pool
 {
-    public abstract class Pool<T> : IInitializable where T : IUnitPresenter
+    public abstract class UnitPresenterPool<T> : IInitializable where T : IUnitPresenter
     {
         private DiContainer _diContainer;
         private int _count;
-        
+
         [Inject]
         private void Construct(DiContainer diContainer, int count)
         {
