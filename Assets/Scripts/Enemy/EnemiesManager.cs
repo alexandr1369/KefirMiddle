@@ -24,7 +24,6 @@ namespace Enemy
             _service = service;
             ManagerSettings = settings;
             context.EnemiesManager = this;
-            Debug.Log("Setting enemies manager to context");
         }
 
         public void Start() => _isActive = true;

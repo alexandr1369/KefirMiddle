@@ -940,7 +940,7 @@ MonoBehaviour:
     <Mesh>k__BackingField: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     <LocalScale>k__BackingField: {x: 1, y: 1, z: 1}
     <LifeTimeDuration>k__BackingField: 1
-    <LifeTimeCheckDelay>k__BackingField: 0
+    <LifeTimeCheckDelay>k__BackingField: 0.1
     <StartVelocity>k__BackingField: 50
     <Drag>k__BackingField: 0
 --- !u!4 &2035819917

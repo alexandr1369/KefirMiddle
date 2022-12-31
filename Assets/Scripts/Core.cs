@@ -1,7 +1,6 @@
 using Factory;
 using Presenter;
 using UnityEngine;
-using Utils;
 
 public class Core
 {
