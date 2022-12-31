@@ -6,23 +6,23 @@ using Zenject;
 namespace DialogueSystem
 {
     [RequireComponent(typeof(Canvas))]
-    public class DialoguesService : MonoBehaviour
+    public class DialoguesService : MonoBehaviour, IDialoguesService
     {
         [field: SerializeField] private DialogueBackground BackgroundPrefab { get; set; }
         
         private readonly List<Dialogue> _dialogsQueue = new();
         private DiContainer _diContainer;
-        // private Dialogues _dialogues;
+        private Dialogues _dialogues;
         private DialogueBackground _dialogueBackground;
         private float _secondsPastSinceLastDialogClosing = DialogueBackground.FADE_TIME;
         private bool _isFading;
 
-        // [Inject]
-        // private void Construct(DiContainer diContainer, Dialogues dialogues)
-        // {
-        //     _diContainer = diContainer;
-        //     _dialogues = dialogues;
-        // }
+        [Inject]
+        private void Construct(DiContainer diContainer, Dialogues dialogues)
+        {
+            _diContainer = diContainer;
+            _dialogues = dialogues;
+        }
 
         private void Update()
         {
@@ -35,54 +35,54 @@ namespace DialogueSystem
                 _isFading = false;
         }
 
-        // public T OpenDialog<T>(DialogueOpenMode mode = DialogueOpenMode.Enqueue) where T : Dialogue
-        // {
-        //     var dialog = _diContainer.InstantiatePrefabForComponent<T>(_dialogues.GetAsset<T>(), transform);
-        //     dialog.SetOnCloseAction(() => OnClosed(dialog));
-        //
-        //     if (IsQueueEmpty())
-        //     {
-        //         _dialogsQueue.Add(dialog);
-        //         OpenPreviousDialog();
-        //         
-        //         Debug.Log("[Dialogues Service] Queue is empty!");
-        //     }
-        //     else
-        //     {
-        //         switch (mode)
-        //         {
-        //             case DialogueOpenMode.Enqueue:
-        //                 _dialogsQueue.Add(dialog);
-        //
-        //                 break;
-        //             case DialogueOpenMode.PushKeepPrevious:
-        //                 _dialogsQueue.Insert(0, dialog);
-        //                 OpenPreviousDialog();
-        //                 _dialogueBackground.transform.SetSiblingIndex(transform.childCount - 2);
-        //
-        //                 break;
-        //             case DialogueOpenMode.PushHidePrevious:
-        //                 if (_dialogsQueue.Count > 0)
-        //                     _dialogsQueue[0].Hide(() => { });
-        //
-        //                 _dialogsQueue.Insert(0, dialog);
-        //                 OpenPreviousDialog();
-        //
-        //                 break;
-        //             case DialogueOpenMode.PushClosePrevious:
-        //                 if (_dialogsQueue.Count > 0)
-        //                     _dialogsQueue[0].Close();
-        //
-        //                 _dialogsQueue.Insert(0, dialog);
-        //
-        //                 break;
-        //         }
-        //     }
-        //     
-        //     return dialog;
-        // }
+        public T OpenDialogue<T>(DialogueOpenMode mode = DialogueOpenMode.Enqueue) where T : Dialogue
+        {
+            var dialog = _diContainer.InstantiatePrefabForComponent<T>(_dialogues.GetAsset<T>(), transform);
+            dialog.SetOnCloseAction(() => OnClosed(dialog));
+        
+            if (IsQueueEmpty())
+            {
+                _dialogsQueue.Add(dialog);
+                OpenPreviousDialog();
+                
+                Debug.Log("[Dialogues Service] Queue is empty!");
+            }
+            else
+            {
+                switch (mode)
+                {
+                    case DialogueOpenMode.Enqueue:
+                        _dialogsQueue.Add(dialog);
+        
+                        break;
+                    case DialogueOpenMode.PushKeepPrevious:
+                        _dialogsQueue.Insert(0, dialog);
+                        OpenPreviousDialog();
+                        _dialogueBackground.transform.SetSiblingIndex(transform.childCount - 2);
+        
+                        break;
+                    case DialogueOpenMode.PushHidePrevious:
+                        if (_dialogsQueue.Count > 0)
+                            _dialogsQueue[0].Hide(() => { });
+        
+                        _dialogsQueue.Insert(0, dialog);
+                        OpenPreviousDialog();
+        
+                        break;
+                    case DialogueOpenMode.PushClosePrevious:
+                        if (_dialogsQueue.Count > 0)
+                            _dialogsQueue[0].Close();
+        
+                        _dialogsQueue.Insert(0, dialog);
+        
+                        break;
+                }
+            }
+            
+            return dialog;
+        }
 
-        public void CloseAllDialogs()
+        public void CloseAllDialogues()
         {
             if (IsQueueEmpty())
                 return;

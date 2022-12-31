@@ -1,16 +1,19 @@
 ﻿using System;
-// using UI.Buttons;
+using UI.Buttons;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DialogueSystem
 {
+    /// <summary>
+    /// Base dialogue class.
+    /// </summary>
     [RequireComponent(typeof(DialogueAnimationController))]
-    public class Dialogue : MonoBehaviour
+    public abstract class Dialogue : MonoBehaviour
     {
         [field: Header("Dialogue")]
         [field: SerializeField] protected Button MisstapCatcher { get; set; }
-        // [field: SerializeField] protected CustomButton CloseButton { get; set; }
+        [field: SerializeField] protected CustomButton CloseButton { get; set; }
         
         public bool IsHiding => !_isShown;
 
@@ -22,8 +25,8 @@ namespace DialogueSystem
         
         protected virtual void Awake()
         {
-            // if (CloseButton) 
-            //     CloseButton.OnClick += Close;
+            if (CloseButton) 
+                CloseButton.OnClick += Close;
 
             if (MisstapCatcher) 
                 MisstapCatcher.onClick.AddListener(Close);

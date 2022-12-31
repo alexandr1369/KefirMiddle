@@ -13,6 +13,7 @@ namespace Audio
 
         [field: Header("Clips")]
         [field: SerializeField] public AudioClip HomeMusicClip { get; set; }
+        [field: SerializeField] public AudioClip ClickClip { get; set; }
         [field: SerializeField] public AudioClip ShootClip { get; set; }
         [field: SerializeField] public AudioClip DestroyClip { get; set; }
     

@@ -1,7 +1,8 @@
 using Cysharp.Threading.Tasks;
-using LoadingSystem.Loading.Operations.Home;
+using DialogueSystem;
 using Movement;
 using Player.Movement;
+using UI.Dialogues;
 using Zenject;
 
 namespace Player
@@ -10,13 +11,16 @@ namespace Player
     {
         private readonly Core _core;
         private readonly IPlayerMovement _movement;
-        private readonly HomeSceneLoadingContext _context;
+        private readonly IDialoguesService _dialoguesService;
 
-        private PlayerDeathChecker(Core core, IPlayerMovement movement, HomeSceneLoadingContext context)
+        private PlayerDeathChecker(
+            Core core,
+            IPlayerMovement movement,
+            IDialoguesService dialoguesService)
         {
             _core = core;
             _movement = movement;
-            _context = context;
+            _dialoguesService = dialoguesService;
         }
 
         public async void Initialize()
@@ -29,9 +33,7 @@ namespace Player
         private void OnDestroyed()
         {
             _movement.SetMoveBehaviour(new NoMoveBehaviour());
-            
-            // TODO: defeat dialogue
-            _context.SceneLoadingService.RestartCurrentLocation();
+            _dialoguesService.OpenDialogue<DefeatDialogue>();
         }
     }
 }

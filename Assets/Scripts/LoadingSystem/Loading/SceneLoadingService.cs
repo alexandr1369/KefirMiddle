@@ -43,8 +43,6 @@ namespace LoadingSystem.Loading
         private void Awake()
         {
             CanvasGroup.alpha = 1f;
-            DontDestroyOnLoad(gameObject);
-
             ChangeLocation(_userState.CurrentLocation, true);
         }
         

@@ -9,6 +9,7 @@ namespace Audio
         AudioSource MusicAudioSource { get; }
         AudioSource SoundAudioSource { get; }
         AudioClip HomeMusicClip { get; }
+        AudioClip ClickClip { get; }
         AudioClip ShootClip { get; }
         AudioClip DestroyClip { get; }
         IGameController GameController { get; }

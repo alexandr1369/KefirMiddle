@@ -30,21 +30,21 @@ namespace DialogueSystem
             if(_hidingState.IsActive())
                 _hidingState.Kill();
             
-            // BackgroundImage
-                // .DOColor(_activeColor, FADE_TIME)
-                // .SetUpdate(true);
+            BackgroundImage
+                .DOColor(_activeColor, FADE_TIME)
+                .SetUpdate(true);
         }
 
         public void Hide(Action onFinish)
         {
-            // _hidingState = BackgroundImage
-            //     .DOColor(_transparentColor, FADE_TIME)
-            //     .SetUpdate(true)
-            //     .OnComplete(() =>
-            //     {
-            //         onFinish.Invoke();
-            //         _hidingState = null;
-            //     });
+            _hidingState = BackgroundImage
+                .DOColor(_transparentColor, FADE_TIME)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    onFinish.Invoke();
+                    _hidingState = null;
+                });
         }
     }
 }
