@@ -7,13 +7,13 @@ namespace Editor.Tests
     public class UnitTests
     {
         [Test]
-        public void WhenCreatingUnit_ThenHealthShouldBe_0()
+        public void WhenCreatingUnit_ThenHealthShouldBe_1()
         {
             // Arrange
             var unit = new UnitModel();
 
             // Assert
-            unit.Health.Should().Be(0);
+            unit.Health.Should().Be(1);
         }
         [Test]
         public void WhenUnitHasHealth_5_AndTakingDamage_2_ThenHealthShouldBe_3_AndTookDamageEventCalled()

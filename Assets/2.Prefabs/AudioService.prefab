@@ -49,6 +49,7 @@ MonoBehaviour:
   <MusicAudioSource>k__BackingField: {fileID: 3720564860639499857}
   <SoundAudioSource>k__BackingField: {fileID: 2665760253411121114}
   <HomeMusicClip>k__BackingField: {fileID: 8300000, guid: c5a6af7adb029df4ba0967bc4de9e7ac, type: 3}
+  <ClickClip>k__BackingField: {fileID: 8300000, guid: 45b118bc83eef4ecdb367212566d18bf, type: 3}
   <ShootClip>k__BackingField: {fileID: 8300000, guid: 34c638d8d99ccfd44a261f13505ab317, type: 3}
   <DestroyClip>k__BackingField: {fileID: 8300000, guid: 9cb65eb2505fbf443ac876ba177374f9, type: 3}
 --- !u!82 &3720564860639499857
