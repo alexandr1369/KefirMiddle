@@ -35,15 +35,11 @@ namespace Audio
     
         public void PlayHomeMusic()
         {
-            Debug.Log("Playing home music");
-            
             if (MusicAudioSource.clip == HomeMusicClip && MusicAudioSource.isPlaying)
                 return;
             
             MusicAudioSource.clip = HomeMusicClip;
             
-            Debug.Log("Setting clip: " + MusicAudioSource.clip);
-
             if (!IsMusicEnabled) 
                 return;
         

@@ -1,4 +1,5 @@
 using Bullet;
+using LoadingSystem.Loading.Operations.Home;
 using UnityEngine;
 using Zenject;
 
@@ -9,13 +10,16 @@ namespace Player.Shooting
         private readonly Core _core;
         private readonly IBulletsService _bulletsService;
         private readonly PlayerShooting.Settings _settings;
+        private readonly HomeSceneLoadingContext _context;
         private float _bulletsShootingDelay;
 
-        public SingleBulletShootBehaviour(Core core, IBulletsService bulletsService, PlayerShooting.Settings settings)
+        public SingleBulletShootBehaviour(Core core, IBulletsService bulletsService, PlayerShooting.Settings settings,
+            HomeSceneLoadingContext context)
         {
             _core = core;
             _bulletsService = bulletsService;
             _settings = settings;
+            _context = context;
         }
 
         public void Tick()
@@ -42,6 +46,7 @@ namespace Player.Shooting
                 return;
             
             _bulletsService.SpawnBulletAt(spawnPoint.position, _core.Presenter.Direction);
+            _context.AudioService.PlayLocalFx(_core.Presenter.AudioSource, _context.AudioService.ShootClip);
         }
     }
 }

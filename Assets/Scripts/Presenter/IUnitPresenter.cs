@@ -16,6 +16,7 @@ namespace Presenter
         Vector3 LocalScale { get; set; }
         Quaternion Rotation { get; set; }
         Vector3 Direction { get; set; }
+        AudioSource AudioSource { get; }
         float Drag { set; }
         bool IsActive { get; set; }
         bool IsPlayer { set; }

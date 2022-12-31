@@ -57,6 +57,8 @@ namespace Presenter
             set => _view.Rb.transform.right = -value;
         }
 
+        public AudioSource AudioSource => _view.AudioSource;
+
         public float Drag
         {
             get => _view.Rb.drag;

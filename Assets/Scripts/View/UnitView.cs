@@ -1,5 +1,7 @@
 using System;
+using LoadingSystem.Loading.Operations.Home;
 using UnityEngine;
+using Zenject;
 
 namespace View
 {
@@ -15,6 +17,12 @@ namespace View
         [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
         [field: SerializeField] public MeshFilter MeshFilter { get; private set; }
         [field: SerializeField] public Transform BulletsSpawnPoint { get; private set;}
+        [field: SerializeField] public AudioSource AudioSource { get; private set; }
+        
+        private HomeSceneLoadingContext _context;
+
+        [Inject]
+        private void Construct(HomeSceneLoadingContext context) => _context = context;
 
         public bool IsActive
         {
@@ -40,12 +48,15 @@ namespace View
         {
             var playerHitsEnemy = IsPlayer && !unitView.IsPlayer && !unitView.IsBullet;
             var enemyHitsBullet = !IsPlayer && !IsBullet && unitView.IsBullet;
-            
-            if(playerHitsEnemy)
+
+            if (playerHitsEnemy) 
                 OnPlayerHitsEnemy?.Invoke();
-            
-            if(enemyHitsBullet)
+
+            if (enemyHitsBullet) 
                 OnEnemyHitsBullet?.Invoke();
+            
+            if(playerHitsEnemy || enemyHitsBullet)
+                _context.AudioService.PlayGlobalFx(_context.AudioService.DestroyClip);
         }
     }
 }

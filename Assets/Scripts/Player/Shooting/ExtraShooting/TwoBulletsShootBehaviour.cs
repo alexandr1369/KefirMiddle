@@ -14,6 +14,7 @@ namespace Player.Shooting.ExtraShooting
         private readonly Core _core;
         private readonly IBulletsService _bulletsService;
         private readonly PlayerShooting.Settings _settings;
+        private readonly HomeSceneLoadingContext _context;
         private float _extraShootingDelay;
 
         public TwoBulletsShootBehaviour(Core core, IBulletsService bulletsService, PlayerShooting.Settings settings,
@@ -22,7 +23,8 @@ namespace Player.Shooting.ExtraShooting
             _core = core;
             _bulletsService = bulletsService;
             _settings = settings;
-            context.PlayerExtraShootingAdapter = this;
+            _context = context;
+            _context.PlayerExtraShootingAdapter = this;
             Count = _settings.ExtraShootingMaxCount;
         }
 
@@ -73,6 +75,7 @@ namespace Player.Shooting.ExtraShooting
                 return;
             
             _bulletsService.SpawnBulletAt(spawnPoint.position + offset, _core.Presenter.Direction);
+            _context.AudioService.PlayLocalFx(_core.Presenter.AudioSource, _context.AudioService.ShootClip);
         }
     }
 }
