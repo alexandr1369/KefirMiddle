@@ -2,6 +2,7 @@ using Player;
 using Player.Movement;
 using Player.Shooting;
 using Player.SpawnPoint;
+using Player.Turning;
 using UnityEngine;
 using Zenject;
 
@@ -47,7 +48,7 @@ namespace Installers
 
         private void BindTurning()
         {
-            Container.BindInterfacesAndSelfTo<PlayerTurning>()
+            Container.BindInterfacesAndSelfTo<PlayerRotation>()
                 .AsSingle();
         }
 

@@ -1,20 +1,24 @@
+using LoadingSystem.Loading.Operations.Home;
 using Location;
 using UnityEngine;
 using Zenject;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-namespace Player
+namespace Player.Turning
 {
-    public class PlayerTurning : IFixedTickable
+    public class PlayerRotation : IFixedTickable, IPlayerRotationAdapter
     {
+        public Quaternion Rotation => _core.Presenter.Rotation;
+        
         private readonly Core _core;
         private readonly IHomeSceneCamera _camera;
 
-        private PlayerTurning(Core core, IHomeSceneCamera camera)
+        private PlayerRotation(Core core, IHomeSceneCamera camera, HomeSceneLoadingContext context)
         {
             _core = core;
             _camera = camera;
+            context.PlayerRotationAdapter = this;
         }
 
         public void FixedTick()

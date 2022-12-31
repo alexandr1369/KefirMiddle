@@ -6,11 +6,13 @@ using Zenject;
 
 namespace Player.Movement
 {
-    public class PlayerMovement : IInitializable, IFixedTickable, IPlayerMovement
+    public class PlayerMovement : IInitializable, IFixedTickable, IPlayerMovement, IPlayerMovementAdapter
     {
         public Core Core { get; }
         public Settings MovementSettings { get; }
-        
+        public Vector3 Position => Core.Presenter.Position;
+        public Vector3 Velocity => Core.Presenter.Velocity;
+
         private IMovable _moveBehaviour;
 
         private PlayerMovement(Core core, Settings settings, HomeSceneLoadingContext context)
@@ -18,6 +20,7 @@ namespace Player.Movement
             Core = core;
             MovementSettings = settings;
             context.PlayerMovement = this;
+            context.PlayerMovementAdapter = this;
         }
 
         public void Initialize() => SetMoveBehaviour(new NoMoveBehaviour());
