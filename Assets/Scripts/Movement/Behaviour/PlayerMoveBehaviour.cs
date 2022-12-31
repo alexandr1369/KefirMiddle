@@ -1,16 +1,14 @@
 using Player;
-using Player.Movement;
-using Presenter;
 using UnityEngine;
 
-namespace Movement
+namespace Movement.Behaviour
 {
     public class PlayerMoveBehaviour : IMovable
     {
         private readonly Core _core;
-        private readonly PlayerMovement.Settings _settings;
+        private readonly ICoreMovement.Settings _settings;
 
-        public PlayerMoveBehaviour(Core core, PlayerMovement.Settings settings)
+        public PlayerMoveBehaviour(Core core, ICoreMovement.Settings settings)
         {
             _core = core;
             _settings = settings;

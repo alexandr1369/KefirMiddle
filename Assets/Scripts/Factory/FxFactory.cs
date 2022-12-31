@@ -1,4 +1,3 @@
-using UnityEngine;
 using Utils.Pool;
 using Zenject;
 
@@ -9,11 +8,7 @@ namespace Factory
         private MonoPool<Fx.Fx> _pool;
 
         [Inject]
-        private void Construct(MonoPool<Fx.Fx> pool)
-        {
-            _pool = pool;
-            Debug.Log("Fx factory has been created with " + _pool);
-        }
+        private void Construct(MonoPool<Fx.Fx> pool) => _pool = pool;
 
         public Fx.Fx Create() => _pool.Spawn();
     }

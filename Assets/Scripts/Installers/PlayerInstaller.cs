@@ -1,5 +1,5 @@
+using Movement;
 using Player;
-using Player.Movement;
 using Player.Shooting;
 using Player.SpawnPoint;
 using Player.Turning;
@@ -10,7 +10,7 @@ namespace Installers
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [field: SerializeField] private PlayerMovement.Settings MovementSettings { get; set; }
+        [field: SerializeField] private ICoreMovement.Settings MovementSettings { get; set; }
         [field: SerializeField] private PlayerShooting.Settings ShootingSettings { get; set; }
         [field: SerializeField] private PlayerSpawnPoint PlayerSpawnPoint { get; set; }
 

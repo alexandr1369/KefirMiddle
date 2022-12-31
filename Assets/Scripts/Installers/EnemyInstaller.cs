@@ -1,5 +1,6 @@
 using Enemy;
 using Factory;
+using Movement;
 using UnityEngine;
 using Zenject;
 
@@ -7,11 +8,13 @@ namespace Installers
 {
     public class EnemyInstaller : MonoInstaller
     {
+        [field: SerializeField] private ICoreMovement.Settings MovementSettings { get; set; }
         [field: SerializeField] private EnemiesManager.Settings Settings { get; set; }
         
         public override void InstallBindings()
         {
             BindEnemy();
+            BindEnemyMovement();
             BindFactory();
             BindManager();
             BindTeleportChecker();
@@ -22,6 +25,14 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<Enemy.Enemy>()
                 .AsTransient()
                 .WithArguments(Settings);
+        }
+
+        private void BindEnemyMovement()
+        {
+            Container.BindInterfacesAndSelfTo<EnemyMovement>()
+                .AsTransient()
+                .WithArguments(MovementSettings)
+                .WhenInjectedInto<Enemy.Enemy>();
         }
 
         private void BindFactory()

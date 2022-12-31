@@ -897,6 +897,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8e60a4ec030462b92ef6e493ced2e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MovementSettings>k__BackingField:
+    <MovementSpeed>k__BackingField: 200
   <Settings>k__BackingField:
     <Material>k__BackingField: {fileID: 2100000, guid: a1f30c6b2183c3f4a9ffa3cb444d6ddc, type: 2}
     <Mesh>k__BackingField: {fileID: 4300000, guid: 0aee836645b89374583afeb4ca36b969, type: 3}
@@ -940,7 +942,7 @@ MonoBehaviour:
   <Settings>k__BackingField:
     <Fx>k__BackingField: {fileID: 8850349920906520420, guid: d84995a5c43f64034bb1ba7ac61dd455, type: 3}
     <FxCount>k__BackingField: 10
-    <Duration>k__BackingField: 5
+    <Duration>k__BackingField: 1
 --- !u!4 &1672967429
 Transform:
   m_ObjectHideFlags: 0

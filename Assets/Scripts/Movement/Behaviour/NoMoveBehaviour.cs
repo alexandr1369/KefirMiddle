@@ -1,4 +1,4 @@
-namespace Movement
+namespace Movement.Behaviour
 {
     public class NoMoveBehaviour : IMovable
     {

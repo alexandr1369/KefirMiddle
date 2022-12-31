@@ -1,21 +1,22 @@
 using System;
 using LoadingSystem.Loading.Operations.Home;
-using Movement;
+using Movement.Behaviour;
+using Player;
 using UnityEngine;
 using Zenject;
 
-namespace Player.Movement
+namespace Movement
 {
-    public class PlayerMovement : IInitializable, IFixedTickable, IPlayerMovement, IPlayerMovementAdapter
+    public class PlayerMovement : IInitializable, IFixedTickable, ICoreMovement, IPlayerMovementAdapter
     {
         public Core Core { get; }
-        public Settings MovementSettings { get; }
+        public ICoreMovement.Settings MovementSettings { get; }
         public Vector3 Position => Core.Presenter.Position;
         public Vector3 Velocity => Core.Presenter.Velocity;
 
         private IMovable _moveBehaviour;
 
-        private PlayerMovement(Core core, Settings settings, HomeSceneLoadingContext context)
+        private PlayerMovement(Core core, ICoreMovement.Settings settings, HomeSceneLoadingContext context)
         {
             Core = core;
             MovementSettings = settings;
@@ -34,11 +35,5 @@ namespace Player.Movement
         }
 
         public void SetMoveBehaviour(IMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
-
-        [Serializable]
-        public class Settings
-        {
-            [field: SerializeField] public float MovementSpeed { get; private set; }   
-        }
     }
 }

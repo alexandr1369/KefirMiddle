@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.Movement
+namespace Movement
 {
     public interface IPlayerMovementAdapter
     {

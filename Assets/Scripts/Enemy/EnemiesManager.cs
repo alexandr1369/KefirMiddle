@@ -65,10 +65,11 @@ namespace Enemy
             var enemy = _factory.Create();
             enemy.Init(null);
             enemy.Presenter.OnDestroyed += () => OnPresenterDestroyed(enemy);
-            enemy.Presenter.LocalScale = EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
+            enemy.Presenter.LocalScale = 
+                EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
             enemy.Presenter.Position =
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
-            enemy.Presenter.Velocity = EnemiesManagerData.GetRandomEnemyVelocity() * ManagerSettings.StartVelocity;
+            // enemy.Presenter.Velocity = EnemiesManagerData.GetRandomEnemyVelocity() * ManagerSettings.StartVelocity;
             enemy.Presenter.Drag = ManagerSettings.Drag;
             Enemies.Add(enemy);
         }
