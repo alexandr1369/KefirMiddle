@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Enemy
 {
-    public class EnemiesManager : ITickable, IEnemiesManager
+    public class EnemiesManager : IFixedTickable, ITickable, IEnemiesManager
     {
         public List<Enemy> Enemies { get; } = new();
         public Settings ManagerSettings { get; }
@@ -32,10 +32,10 @@ namespace Enemy
 
         public void Stop() => _isActive = false;
 
+        public void FixedTick() => Enemies.ForEach(enemy => ((IFixedTickable)enemy).FixedTick());
+
         public void Tick()
         {
-            Enemies.ForEach(enemy => enemy.FixedTick());
-            
             if (IsContinuing())
                 return;
 

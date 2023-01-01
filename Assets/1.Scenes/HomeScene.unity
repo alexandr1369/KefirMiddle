@@ -527,7 +527,7 @@ MonoBehaviour:
     <BulletsShootingDelay>k__BackingField: 0.2
     <ExtraShootingDelay>k__BackingField: 0.2
     <ExtraShootingReloadDelay>k__BackingField: 5
-    <ExtraShootingDistanceMultiplier>k__BackingField: 5
+    <ExtraShootingDistanceMultiplier>k__BackingField: 1
     <ExtraShootingMaxCount>k__BackingField: 10
   <PlayerSpawnPoint>k__BackingField: {fileID: 1332381167}
 --- !u!4 &1162501236
