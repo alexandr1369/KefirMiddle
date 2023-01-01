@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Enemy
 {
-    public class Enemy : Core, IFixedTickable, IEnemy
+    public class Enemy : Core, IFixedTickable, IEnemyTypeAdapter
     {
         private readonly EnemiesManager.Settings _settings;
         private readonly EnemyMovement _movement;
@@ -27,21 +27,22 @@ namespace Enemy
             base.Init(parent);
             
             Presenter.IsPlayer = false;
-            Presenter.MeshRenderer.material = _settings.Material;
-            Presenter.MeshFilter.mesh = _settings.Mesh;
         }
 
-        public void SetEnemyType(IEnemy.Type type)
+        public void SetEnemyType(IEnemyTypeAdapter.Type type)
         {
+            var enemy = _settings.TypeSettings.Find(t => t.Type == type);
             var velocity = EnemiesManagerData.GetRandomEnemyVelocity() * _settings.StartVelocity;;
+            Presenter.MeshRenderer.material = enemy.Material;
+            Presenter.MeshFilter.mesh = enemy.Mesh;
 
             switch (type)
             {
-                case IEnemy.Type.Asteroid:
+                case IEnemyTypeAdapter.Type.Asteroid:
                     _movement.SetMoveBehaviour(new LinearMoveBehaviour(Presenter, velocity));
                     
                     break;
-                case IEnemy.Type.Ufo:
+                case IEnemyTypeAdapter.Type.Ufo:
                     _movement.SetMoveBehaviour(new FollowingPlayerMoveBehaviour(Presenter,
                         _playerMovementAdapter, velocity.magnitude));
                     
@@ -50,16 +51,5 @@ namespace Enemy
         }
 
         public void FixedTick() => _movement.FixedTick();
-    }
-
-    public interface IEnemy
-    {
-        void SetEnemyType(Type type);
-        
-        public enum Type
-        {
-            Asteroid,
-            Ufo
-        }
     }
 }

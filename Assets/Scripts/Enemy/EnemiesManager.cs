@@ -4,7 +4,6 @@ using System.Linq;
 using LoadingSystem.Loading.Operations.Home;
 using Location;
 using UnityEngine;
-using Utils;
 using Zenject;
 using Random = UnityEngine.Random;
 
@@ -68,33 +67,35 @@ namespace Enemy
         private void Spawn()
         {
             var enemy = _factory.Create();
+            var type = GetEnemyType();
+            var typeSettings = ManagerSettings.TypeSettings.Find(settings => settings.Type == type);
             enemy.Init(null);
-            ((IEnemy)enemy).SetEnemyType(GetEnemyType());
+            ((IEnemyTypeAdapter)enemy).SetEnemyType(type);
             enemy.Presenter.OnDestroyed += () => OnPresenterDestroyed(enemy);
             enemy.Presenter.LocalScale = 
-                EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
+                EnemiesManagerData.GetRandomLocalScale(typeSettings.MinScale, typeSettings.MaxScale);
             enemy.Presenter.Position =
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
             enemy.Presenter.Drag = ManagerSettings.Drag;
             Enemies.Add(enemy);
         }
 
-        private IEnemy.Type GetEnemyType()
+        private IEnemyTypeAdapter.Type GetEnemyType()
         {
-            var enemyChances = ManagerSettings.TypeSettings.Chances;
-            var totalChanceValue = enemyChances.Sum(chance => chance.Value);
+            var enemyTypeSettings = ManagerSettings.TypeSettings;
+            var totalChanceValue = enemyTypeSettings.Sum(chance => chance.Chance);
             var randomChance = Random.Range(0, totalChanceValue);
             float currentChance = 0;
 
-            foreach (var chance in enemyChances)
+            foreach (var settings in enemyTypeSettings)
             {
-                currentChance += chance.Value;
+                currentChance += settings.Chance;
                 
                 if(currentChance >= randomChance)
-                    return chance.Key;
+                    return settings.Type;
             }
             
-            return IEnemy.Type.Asteroid;
+            return IEnemyTypeAdapter.Type.Asteroid;
         }
 
         private void OnPresenterDestroyed(Enemy enemy) => Enemies.Remove(enemy);
@@ -102,28 +103,24 @@ namespace Enemy
         [Serializable]
         public class Settings
         {
-            [field: SerializeField] public Material Material { get; private set; }
-            [field: SerializeField] public Mesh Mesh { get; private set; }
-            [field: SerializeField] public float MinScale { get; private set; }
-            [field: SerializeField] public float MaxScale { get; private set; }
+            [field: SerializeField] public List<EnemiesTypeSettings> TypeSettings { get; private set; }
             [field: SerializeField] public float SpawnDelay { get; private set; }
             [field: SerializeField] public float TeleportCheckerDelay { get; private set; }
             [field: SerializeField] public int StartCount { get; private set; }
             [field: SerializeField] public int MaxCount { get; private set; }
             [field: SerializeField] public float StartVelocity { get; private set; }
             [field: SerializeField] public float Drag { get; private set; }
-            [field: SerializeField] public EnemiesTypeSettings TypeSettings { get; private set; }
         }
 
         [Serializable]
         public class EnemiesTypeSettings
         {
-            [field: SerializeField] public List<EnemyChanceKeyValuePair> Chances { get; set; }
-        }
-
-        [Serializable]
-        public class EnemyChanceKeyValuePair : CustomKeyValuePair<IEnemy.Type, float>
-        {
+            [field: SerializeField] public IEnemyTypeAdapter.Type Type { get; private set; }
+            [field: SerializeField] public float Chance { get; private set; }
+            [field: SerializeField] public Material Material { get; private set; }
+            [field: SerializeField] public Mesh Mesh { get; private set; }
+            [field: SerializeField] public float MinScale { get; private set; }
+            [field: SerializeField] public float MaxScale { get; private set; }
         }
     }
 }
