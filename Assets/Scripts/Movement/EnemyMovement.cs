@@ -1,4 +1,5 @@
 using Player;
+using UnityEngine;
 using Zenject;
 
 namespace Movement
@@ -18,12 +19,14 @@ namespace Movement
 
         public void FixedTick()
         {
+            Debug.Log("Enemy movement fixed tick: " + GetHashCode());
+            
             if(Core.Presenter.IsDead)
                 return;
             
             _moveBehaviour.Move();
         }
 
-        public void SetMoveBehaviour(IMovable moveBehaviour) => _moveBehaviour.Move();
+        public void SetMoveBehaviour(IMovable moveBehaviour) => _moveBehaviour = moveBehaviour;
     }
 }

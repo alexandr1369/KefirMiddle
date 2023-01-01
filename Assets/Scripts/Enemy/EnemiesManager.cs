@@ -32,6 +32,8 @@ namespace Enemy
 
         public void Tick()
         {
+            Enemies.ForEach(enemy => enemy.FixedTick());
+            
             if (IsContinuing())
                 return;
 
@@ -69,7 +71,6 @@ namespace Enemy
                 EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
             enemy.Presenter.Position =
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
-            // enemy.Presenter.Velocity = EnemiesManagerData.GetRandomEnemyVelocity() * ManagerSettings.StartVelocity;
             enemy.Presenter.Drag = ManagerSettings.Drag;
             Enemies.Add(enemy);
         }

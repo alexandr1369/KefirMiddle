@@ -1,22 +1,20 @@
-using Factory;
 using Movement;
 using Movement.Behaviour;
 using Player;
 using Presenter;
 using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
-    public class Enemy : Core
+    public class Enemy : Core, IFixedTickable
     {
         private readonly EnemiesManager.Settings _settings;
-        private readonly ICoreMovement _movement;
+        private readonly EnemyMovement _movement;
 
-        protected Enemy(IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings, ICoreMovement movement) 
+        protected Enemy(Factory.IFactory<IUnitPresenter> factory, EnemiesManager.Settings settings, EnemyMovement movement) 
             : base(factory)
         {
-            Debug.Log("Enemy is enemy movement: " + (movement is PlayerMovement));
-            
             _settings = settings;
             _movement = movement;
         }
@@ -29,9 +27,10 @@ namespace Enemy
             Presenter.MeshRenderer.material = _settings.Material;
             Presenter.MeshFilter.mesh = _settings.Mesh;
             
-            Debug.Log("Initializing movement: " + (Presenter != null) + " " + (_movement != null));
             var velocity = EnemiesManagerData.GetRandomEnemyVelocity() * _settings.StartVelocity;;
             _movement.SetMoveBehaviour(new LinearMoveBehaviour(Presenter, velocity));
         }
+
+        public void FixedTick() => _movement.FixedTick();
     }
 }

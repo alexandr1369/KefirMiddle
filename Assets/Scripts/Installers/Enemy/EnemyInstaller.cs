@@ -4,7 +4,7 @@ using Movement;
 using UnityEngine;
 using Zenject;
 
-namespace Installers
+namespace Installers.Enemy
 {
     public class EnemyInstaller : MonoInstaller
     {
@@ -14,7 +14,6 @@ namespace Installers
         public override void InstallBindings()
         {
             BindEnemy();
-            BindEnemyMovement();
             BindFactory();
             BindManager();
             BindTeleportChecker();
@@ -22,22 +21,23 @@ namespace Installers
 
         private void BindEnemy()
         {
-            Container.BindInterfacesAndSelfTo<Enemy.Enemy>()
-                .AsTransient()
-                .WithArguments(Settings);
-        }
-
-        private void BindEnemyMovement()
-        {
-            Container.BindInterfacesAndSelfTo<EnemyMovement>()
-                .AsTransient()
-                .WithArguments(MovementSettings)
-                .WhenInjectedInto<Enemy.Enemy>();
+            Container.Bind<ICoreMovement.Settings>()
+                .FromInstance(MovementSettings)
+                .AsSingle();
+            
+            Container.Bind<EnemiesManager.Settings>()
+                .FromInstance(Settings)
+                .AsSingle();
+            
+            Container.Bind<global::Enemy.Enemy>()
+                .FromSubContainerResolve()
+                .ByInstaller<EnemySubContainerInstaller>()
+                .AsTransient();
         }
 
         private void BindFactory()
         {
-            Container.Bind<Factory.IFactory<Enemy.Enemy>>()
+            Container.Bind<Factory.IFactory<global::Enemy.Enemy>>()
                 .To<EnemiesFactory>()
                 .AsSingle();
         }

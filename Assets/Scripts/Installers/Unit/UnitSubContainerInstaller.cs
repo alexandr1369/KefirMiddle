@@ -2,7 +2,7 @@ using Model;
 using Presenter;
 using Zenject;
 
-namespace Installers
+namespace Installers.Unit
 {
     public class UnitSubContainerInstaller : Installer
     {

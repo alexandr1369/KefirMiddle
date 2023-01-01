@@ -1,11 +1,10 @@
 using Factory;
 using Location;
 using Presenter;
-using Utils;
 using Utils.Pool;
 using Zenject;
 
-namespace Installers
+namespace Installers.Unit
 {
     public class UnitInstaller : MonoInstaller
     {
