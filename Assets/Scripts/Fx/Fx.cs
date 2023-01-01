@@ -25,7 +25,7 @@ namespace Fx
             _pool.Despawn(this);
         }
 
-        public void PlayFx(FxType type, Vector3 position, float duration)
+        public void PlayFx(FxType type, Vector3 position, Vector3 scale, float duration)
         {
             switch (type)
             {
@@ -36,6 +36,7 @@ namespace Fx
             }
             
             transform.position = position;
+            transform.localScale = scale;
             _timeLeftToDespawn = duration;
         }
 

@@ -60,7 +60,7 @@ namespace View
                 OnEnemyHitsBullet?.Invoke();
 
             _context.AudioService.PlayGlobalFx(_context.AudioService.DestroyClip);
-            _context.FxService.PlayAt(FxType.Boom, transform.position);
+            _context.FxService.PlayAt(FxType.Boom, transform.position, transform.localScale);
         }
     }
 }

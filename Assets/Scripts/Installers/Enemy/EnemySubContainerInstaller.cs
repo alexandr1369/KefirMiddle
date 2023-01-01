@@ -31,7 +31,7 @@ namespace Installers.Enemy
 
         private void BindEnemy()
         {
-            Container.Bind<global::Enemy.Enemy>()
+            Container.BindInterfacesAndSelfTo<global::Enemy.Enemy>()
                 .AsSingle()
                 .WithArguments(_enemiesManagerSettings);
         }

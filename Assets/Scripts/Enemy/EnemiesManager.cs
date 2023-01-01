@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using LoadingSystem.Loading.Operations.Home;
 using Location;
 using UnityEngine;
+using Utils;
 using Zenject;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -66,6 +69,7 @@ namespace Enemy
         {
             var enemy = _factory.Create();
             enemy.Init(null);
+            ((IEnemy)enemy).SetEnemyType(GetEnemyType());
             enemy.Presenter.OnDestroyed += () => OnPresenterDestroyed(enemy);
             enemy.Presenter.LocalScale = 
                 EnemiesManagerData.GetRandomLocalScale(ManagerSettings.MinScale, ManagerSettings.MaxScale);
@@ -73,6 +77,24 @@ namespace Enemy
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
             enemy.Presenter.Drag = ManagerSettings.Drag;
             Enemies.Add(enemy);
+        }
+
+        private IEnemy.Type GetEnemyType()
+        {
+            var enemyChances = ManagerSettings.TypeSettings.Chances;
+            var totalChanceValue = enemyChances.Sum(chance => chance.Value);
+            var randomChance = Random.Range(0, totalChanceValue);
+            float currentChance = 0;
+
+            foreach (var chance in enemyChances)
+            {
+                currentChance += chance.Value;
+                
+                if(currentChance >= randomChance)
+                    return chance.Key;
+            }
+            
+            return IEnemy.Type.Asteroid;
         }
 
         private void OnPresenterDestroyed(Enemy enemy) => Enemies.Remove(enemy);
@@ -90,6 +112,18 @@ namespace Enemy
             [field: SerializeField] public int MaxCount { get; private set; }
             [field: SerializeField] public float StartVelocity { get; private set; }
             [field: SerializeField] public float Drag { get; private set; }
+            [field: SerializeField] public EnemiesTypeSettings TypeSettings { get; private set; }
+        }
+
+        [Serializable]
+        public class EnemiesTypeSettings
+        {
+            [field: SerializeField] public List<EnemyChanceKeyValuePair> Chances { get; set; }
+        }
+
+        [Serializable]
+        public class EnemyChanceKeyValuePair : CustomKeyValuePair<IEnemy.Type, float>
+        {
         }
     }
 }

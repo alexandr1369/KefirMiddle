@@ -17,10 +17,10 @@ namespace Fx
             context.FxService = this;
         }
 
-        public void PlayAt(FxType type, Vector3 position)
+        public void PlayAt(FxType type, Vector3 position = default, Vector3 scale = default)
         {
             var fx = _factory.Create();
-            fx.PlayFx(type, position, _duration);
+            fx.PlayFx(type, position, scale, _duration);
         }
         
         [Serializable]
