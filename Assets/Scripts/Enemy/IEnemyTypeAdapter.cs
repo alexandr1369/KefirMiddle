@@ -1,12 +1,16 @@
+using UnityEngine;
+
 namespace Enemy
 {
     public interface IEnemyTypeAdapter
     {
-        void SetEnemyType(Type type);
+        Type EnemyType { get; }
+        void SetEnemyType(Type type, Vector3? velocity = null);
         
         public enum Type
         {
             Asteroid,
+            BrokenAsteroid,
             Ufo
         }
     }

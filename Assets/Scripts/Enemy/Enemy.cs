@@ -9,6 +9,8 @@ namespace Enemy
 {
     public class Enemy : Core, IFixedTickable, IEnemyTypeAdapter
     {
+        public IEnemyTypeAdapter.Type EnemyType { get; private set; }
+        
         private readonly EnemiesManager.Settings _settings;
         private readonly EnemyMovement _movement;
         private readonly IPlayerMovementAdapter _playerMovementAdapter;
@@ -29,22 +31,24 @@ namespace Enemy
             Presenter.IsPlayer = false;
         }
 
-        public void SetEnemyType(IEnemyTypeAdapter.Type type)
+        public void SetEnemyType(IEnemyTypeAdapter.Type type, Vector3? velocity = null)
         {
+            EnemyType = type;
             var enemy = _settings.TypeSettings.Find(t => t.Type == type);
-            var velocity = EnemiesManagerData.GetRandomEnemyVelocity() * _settings.StartVelocity;;
+            var randomVelocity = EnemiesManagerData.GetRandomEnemyVelocity() * _settings.StartVelocity * enemy.VelocityMultiplier;
             Presenter.MeshRenderer.material = enemy.Material;
             Presenter.MeshFilter.mesh = enemy.Mesh;
 
             switch (type)
             {
                 case IEnemyTypeAdapter.Type.Asteroid:
-                    _movement.SetMoveBehaviour(new LinearMoveBehaviour(Presenter, velocity));
+                case IEnemyTypeAdapter.Type.BrokenAsteroid:
+                    _movement.SetMoveBehaviour(new LinearMoveBehaviour(Presenter, randomVelocity));
                     
                     break;
                 case IEnemyTypeAdapter.Type.Ufo:
                     _movement.SetMoveBehaviour(new FollowingPlayerMoveBehaviour(Presenter,
-                        _playerMovementAdapter, velocity.magnitude));
+                        _playerMovementAdapter, randomVelocity.magnitude));
                     
                     break;
             }

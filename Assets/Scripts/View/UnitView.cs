@@ -13,6 +13,7 @@ namespace View
     {
         public event Action OnEnemyHitsBullet;
         public event Action OnPlayerHitsEnemy;
+        public event Action OnForceDestroy;
         
         [field: SerializeField] public Rigidbody Rb { get; private set; }
         [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
@@ -56,11 +57,16 @@ namespace View
             if (playerHitsEnemy) 
                 OnPlayerHitsEnemy?.Invoke();
 
-            if (enemyHitsBullet) 
+            if (enemyHitsBullet)
+            {
                 OnEnemyHitsBullet?.Invoke();
+                unitView.ForceDestroy();
+            }
 
             _context.AudioService.PlayGlobalFx(_context.AudioService.DestroyClip);
             _context.FxService.PlayAt(FxType.Boom, transform.position, transform.localScale);
         }
+
+        public void ForceDestroy() => OnForceDestroy?.Invoke();
     }
 }

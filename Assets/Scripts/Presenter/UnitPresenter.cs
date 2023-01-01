@@ -12,6 +12,7 @@ namespace Presenter
     public class UnitPresenter : IUnitPresenter
     {
         public event Action OnDestroyed;
+        public event Action OnDestroyedTemporary;
 
         public Transform Parent
         {
@@ -99,8 +100,11 @@ namespace Presenter
         {
             _view = view;
             _model = model;
+            _view.OnForceDestroy += () => _model.TakeDamage();
             _model.OnDestroyed += () => OnDestroyed?.Invoke();
+            _model.OnDestroyed += () => OnDestroyedTemporary -= OnDestroyedTemporaryAction;
             OnDestroyed += () => pool.Despawn(this);
+            OnDestroyed += OnDestroyedTemporaryAction;
         }
 
         public void TakeDamage() => _model.TakeDamage();
@@ -117,6 +121,8 @@ namespace Presenter
             else
                 _view.OnEnemyHitsBullet += TakeDamage;
         }
+
+        private void OnDestroyedTemporaryAction() => OnDestroyedTemporary?.Invoke();
 
         public class Pool : UnitPresenterPool<IUnitPresenter>
         {

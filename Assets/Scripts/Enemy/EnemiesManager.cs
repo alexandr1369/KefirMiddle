@@ -64,20 +64,33 @@ namespace Enemy
             return false;
         }
 
-        private void Spawn()
+        private void Spawn(IEnemyTypeAdapter.Type? type = null, Vector3? position = null, Vector3? velocity = null)
         {
             var enemy = _factory.Create();
-            var type = GetEnemyType();
-            var typeSettings = ManagerSettings.TypeSettings.Find(settings => settings.Type == type);
+            var enemyType = type ?? GetEnemyType();
+            var typeSettings = ManagerSettings.TypeSettings.Find(settings => settings.Type == enemyType);
             enemy.Init(null);
-            ((IEnemyTypeAdapter)enemy).SetEnemyType(type);
-            enemy.Presenter.OnDestroyed += () => OnPresenterDestroyed(enemy);
+            ((IEnemyTypeAdapter)enemy).SetEnemyType(enemyType, velocity);
+            enemy.Presenter.OnDestroyedTemporary += OnPresenterDestroyed;
             enemy.Presenter.LocalScale = 
                 EnemiesManagerData.GetRandomLocalScale(typeSettings.MinScale, typeSettings.MaxScale);
-            enemy.Presenter.Position =
+            enemy.Presenter.Position = position ??
                 EnemiesManagerData.GetRandomEnemyPosition(enemy.Presenter.LocalScale.x, _service);
             enemy.Presenter.Drag = ManagerSettings.Drag;
             Enemies.Add(enemy);
+
+            void OnPresenterDestroyed()
+            {
+                Enemies.Remove(enemy);
+
+                if (((IEnemyTypeAdapter)enemy).EnemyType != IEnemyTypeAdapter.Type.Asteroid) 
+                    return;
+                
+                Spawn(IEnemyTypeAdapter.Type.BrokenAsteroid, enemy.Presenter.Position, 
+                    -enemy.Presenter.Transform.right);
+                Spawn(IEnemyTypeAdapter.Type.BrokenAsteroid, enemy.Presenter.Position, 
+                    enemy.Presenter.Transform.right);
+            }
         }
 
         private IEnemyTypeAdapter.Type GetEnemyType()
@@ -97,8 +110,6 @@ namespace Enemy
             
             return IEnemyTypeAdapter.Type.Asteroid;
         }
-
-        private void OnPresenterDestroyed(Enemy enemy) => Enemies.Remove(enemy);
 
         [Serializable]
         public class Settings
@@ -121,6 +132,7 @@ namespace Enemy
             [field: SerializeField] public Mesh Mesh { get; private set; }
             [field: SerializeField] public float MinScale { get; private set; }
             [field: SerializeField] public float MaxScale { get; private set; }
+            [field: SerializeField] public float VelocityMultiplier { get; private set; }
         }
     }
 }
